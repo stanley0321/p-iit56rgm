@@ -221,8 +221,21 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
   .hero svg.court { right: -320px; opacity: .1 }
 }
 @media print {
+  @page { size: A4; margin: 10mm }
+  html { zoom: .68 }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact }
+  body { background: #fff }
   nav.fixtures, .ticker, #tip { display: none }
-  .case { break-inside: avoid }
+  .case-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) !important }
+  .case-body > .text { position: static }
+  .board { grid-template-columns: repeat(5, minmax(0, 1fr)) !important }
+  .board div { border-bottom: 0 !important; border-right: 1px solid var(--line) !important; grid-column: auto !important }
+  .board div:last-child { border-right: 0 !important }
+  .kit { grid-template-columns: repeat(4, minmax(0, 1fr)) !important }
+  .earlier { grid-template-columns: 1fr 1fr !important }
+  .case { break-before: page }
+  .earlier + .section-title { break-before: page }
+  .case-head, .fig, .calls, .blk, .tile, .mini, .kitcol, .career { break-inside: avoid }
 }
 </style>
 </head>
@@ -286,7 +299,7 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
         <p>AUC 0.91. The riskiest 10% of players hold 58% of next month's churners. The bigger finding was how homogeneous VIP behavior is. Recency and active days carry almost all of the signal, which is why the simple rule already scores 0.885. The model's value is in ranking and calibration, so the top of the list is the right top.</p></div>
       <div class="calls"><span class="lbl">What it changed</span>
         <ol>
-          <li>A daily alert of the top 100 at-risk VIPs now sits in the Brand Marketing VIP dashboard, for telesales and campaign follow-up.</li>
+          <li>I built the VIP dashboard in Python Dash with Brand Marketing and VIP management. It refreshes churn risk daily and is used for telesales activation and day-to-day VIP management.</li>
           <li>The CRM team got evidence that a recency-based trigger is a sound first filter for VIP churn prevention, with the model as the ranking layer on top.</li>
         </ol></div>
     </div>
@@ -300,7 +313,7 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
       <div class="fig"><div class="cap">VIP churn is mostly one signal</div><div class="sub">Drop in test AUC when each feature is shuffled</div><div id="fig-imp"></div></div>
       <div class="fig"><div class="cap">The daily alert, as the VIP team sees it</div><div class="sub">Illustration. IDs masked, scores are examples.</div>
         <div class="alert">
-          <div class="bar"><span>VIP churn watch · Top 100</span><span class="pill">Updated daily 09:00</span></div>
+          <div class="bar"><span>VIP churn watch</span><span class="pill">Updated daily 09:00</span></div>
           <table>
             <thead><tr><th>Player</th><th>Tier</th><th>Last bet</th><th class="p">Churn risk</th></tr></thead>
             <tbody>
@@ -317,7 +330,7 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
 
 <!-- 02 CRM -->
 <article class="case" id="crm">
-  <div class="case-head"><span class="no">02</span><span>ArenaPlus · DigiPlus</span><span>2025–2026</span><span class="tag">CRM</span><span class="tag">Holdouts · Difference-in-differences</span></div>
+  <div class="case-head"><span class="no">02</span><span>ArenaPlus · DigiPlus</span><span>2025–2026</span><span class="tag">CRM</span><span class="tag">A/B tests · Control groups</span></div>
   <div class="case-body">
     <div class="text">
       <h3>Four campaigns a week, measured honestly</h3>
@@ -326,14 +339,15 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
       <div class="blk"><span class="lbl">What I built</span>
         <ul>
           <li>The weekly target-list engine for all four campaign types, with one generator per day.</li>
-          <li>A 10% holdout on every send, stratified by turnover, GGR, deposits and withdrawals so target and control start out alike.</li>
-          <li>Difference-in-differences for older campaigns that had no holdout.</li>
+          <li>A/B tests on every send with a 10% random control group, stratified by turnover, GGR, deposits and withdrawals so both groups start out alike.</li>
+          <li>Difference-in-differences for older campaigns that had no control group.</li>
         </ul></div>
       <div class="blk"><span class="lbl">What came out</span>
-        <p>For the first time the team could see real campaign efficiency. One slots campaign returned 1.34× its cost, not the 2.98× the old comparison reported. Churn prevention, read month by month, looked like it cost 15.6 points of retention. Read per run against its own holdout, it was a +3.6 point D7 lift, and the same method showed which campaigns returned less than they cost.</p></div>
+        <p>For the first time the team could see what each campaign really did. Retention offers lifted activity in the first week, but the gap with the control group closed within the month. Churn prevention held its lift longer, +3.6pp at D7 and still +1.3pp at D30, and was the only program adding GGR at D30. One slots campaign returned 1.34× its cost, not the 2.98× the old redeemer comparison reported.</p></div>
       <div class="calls"><span class="lbl">What it changed</span>
         <ol>
-          <li>The holdout became the standard way the team reads every lifecycle campaign.</li>
+          <li>A/B testing with a control group became the standard way the team reads every lifecycle campaign.</li>
+          <li>I proposed moving more of the target pool from retention offers into churn prevention, where the effect lasts.</li>
           <li>Offers moved away from players who would have bet anyway and toward high-value segments: VIPs with no recent bets, lapsed VIPs and local high-value players. Promotion cost fell by PHP 10M a year while betting volume (PHP 5.6B) and ARPU (PHP 27) held.</li>
         </ol></div>
     </div>
@@ -345,12 +359,12 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
           <div><span class="d">TUE</span><b>Churn prevention</b><span>Catch players starting to slip</span></div>
           <div><span class="d">THU</span><b>Cross-sell</b><span>Casino ↔ sports</span></div>
         </div>
-        <div class="flow"><span class="s">Eligible players</span><span class="a">→</span><span class="s">Stratify</span><span class="a">→</span><span class="s hot">90% offer</span><span class="a">+</span><span class="s dim">10% holdout</span><span class="a">→</span><span class="s">Read at D7 / D30</span></div></div>
+        <div class="flow"><span class="s">Eligible players</span><span class="a">→</span><span class="s">Stratify</span><span class="a">→</span><span class="s hot">90% offer</span><span class="a">+</span><span class="s dim">10% control</span><span class="a">→</span><span class="s">Read at D7 / D30</span></div></div>
       <div class="fig"><div class="cap">Every send keeps 1 in 10 players back</div><div class="sub">Each square = 1% of eligible players. Stratified so both groups start out alike.</div>
         <div class="waffle-row"><div id="fig-waffle"></div>
-          <div class="wkeys"><div><span class="big r">90%</span><span>get the offer</span></div><div><span class="big">10%</span><span>holdout, no offer</span></div><div class="note">Compared at D7 and D30 on return rate, turnover, GGR and deposits</div></div></div></div>
+          <div class="wkeys"><div><span class="big r">90%</span><span>get the offer</span></div><div><span class="big">10%</span><span>control group, no offer</span></div><div class="note">Compared at D7 and D30 on return rate, turnover, GGR and deposits</div></div></div></div>
       <div class="fig"><div class="cap">Return on one slots campaign</div><div class="sub">Old redeemer comparison vs a proper control</div><div id="fig-naive"></div></div>
-      <div class="fig"><div class="cap">D7 return-rate lift vs holdout, August 2026</div><div class="sub">Per-run randomized holdout, by campaign family (pp)</div><div id="fig-causal"></div></div>
+      <div class="fig"><div class="cap">D7 return-rate lift vs control group, August 2026</div><div class="sub">Random control group on every run, by campaign family (pp)</div><div id="fig-causal"></div></div>
     </div>
   </div>
 </article>
@@ -531,7 +545,7 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
       <div class="calls"><span class="lbl">What it changed</span>
         <ol>
           <li>Inactive players with a past big win came back at a higher rate. They became their own win-back segment, and the pilot returned 3.1× its cost.</li>
-          <li>Cherry pickers are removed from every target list. Campaign ROI on the GGE brand rose from 2.3 to 3.5.</li>
+          <li>Cherry pickers are removed from every target list. ROI on tournament CRM campaigns rose from 2.3 to 3.5 within a month.</li>
           <li>GGR grew 25% year over year and CRM ROI more than doubled. Automated reporting removed four days of work per cycle.</li>
         </ol></div>
     </div>
@@ -540,12 +554,12 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
         <div class="flow"><span class="s">Weeks inactive</span><span class="a">→</span><span class="s">Lifetime value</span><span class="a">→</span><span class="s">Preferred format</span><span class="a">→</span><span class="s">Region</span></div>
         <div class="flow"><span class="s">Eligible list</span><span class="a">→</span><span class="s dim">Remove cherry pickers</span><span class="a">→</span><span class="s hot">Personalized offer</span><span class="a">→</span><span class="s">A/B test</span></div></div>
       <div class="fig"><div class="cap">Who counts as a cherry picker</div><div class="sub">A player flagged on any rule is removed from every target list, refreshed daily</div><div id="fig-cherry"></div></div>
-      <div class="fig"><div class="cap">GGE brand campaign ROI</div><div class="sub">Month over month, after the screen went in</div><div id="fig-roi"></div></div>
+      <div class="fig"><div class="cap">Tournament CRM campaign ROI</div><div class="sub">Month over month, after the screen went in</div><div id="fig-roi"></div></div>
       <div class="fig"><div class="cap">Results</div>
         <div class="tiles">
           <div class="tile"><span class="v">3.1×</span><span class="k">ROI, personalized win-back pilot</span></div>
           <div class="tile"><span class="v">+25%</span><span class="k">GGR year over year</span></div>
-          <div class="tile"><span class="v">2.3 → 3.5</span><span class="k">GGE campaign ROI after the cherry-picker screen</span></div>
+          <div class="tile"><span class="v">2.3 → 3.5</span><span class="k">Tournament campaign ROI after the cherry-picker screen</span></div>
           <div class="tile b"><span class="v">4 days</span><span class="k">of reporting work automated per cycle</span></div>
         </div></div>
     </div>
@@ -569,7 +583,7 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
 <div class="section-title"><h2>Toolkit</h2><p>What I use day to day, grouped by the job it does.</p></div>
 <div class="kit">
   <div class="kitcol"><b>Modeling</b><div class="chips"><span class="on">Gradient boosting</span><span>Logistic regression</span><span>Random forest</span><span class="on">Matrix factorization (ALS)</span><span>Text mining</span><span>Sequential pattern mining</span></div></div>
-  <div class="kitcol"><b>Measurement</b><div class="chips"><span class="on">Holdout design</span><span class="on">Difference-in-differences</span><span>A/B and multivariate tests</span><span>NDCG, MAP</span><span>Bootstrap intervals</span><span>Calibration</span></div></div>
+  <div class="kitcol"><b>Measurement</b><div class="chips"><span class="on">A/B tests with control groups</span><span class="on">Difference-in-differences</span><span>A/B and multivariate tests</span><span>NDCG, MAP</span><span>Bootstrap intervals</span><span>Calibration</span></div></div>
   <div class="kitcol"><b>Data and build</b><div class="chips"><span class="on">Python</span><span class="on">SQL</span><span>pandas · NumPy · scikit-learn</span><span>Alibaba Cloud MaxCompute</span><span>Snowflake</span><span>Streamlit</span><span>Dash</span><span>pytest</span><span>Git</span><span>Huawei Cloud</span></div></div>
   <div class="kitcol"><b>Platforms and workflow</b><div class="chips"><span>iCore</span><span>Altenar</span><span>SABA</span><span>Optimove</span><span>Tableau</span><span>Quick BI</span><span>Lark</span><span class="on">AI coding agents, planning to review</span></div></div>
 </div>
@@ -694,7 +708,7 @@ function kidaChart() {
 const put = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
 put("fig-churn", churnCurve(D.churn));
 put("fig-imp", bars(D.imp, {left: 190, fmt: (v) => v.toFixed(3), label: "Permutation importance", axis: "AUC drop when shuffled"}));
-put("fig-naive", bars([["Redeemers vs non-redeemers", 2.98, 0], ["Holdout-based read", 1.34, 1]], {left: 190, fmt: (v) => v.toFixed(2) + "×", label: "Campaign return, old comparison vs holdout", axis: "return per peso of bonus"}));
+put("fig-naive", bars([["Redeemers vs non-redeemers", 2.98, 0], ["Against a control group", 1.34, 1]], {left: 190, fmt: (v) => v.toFixed(2) + "×", label: "Campaign return, old comparison vs control group", axis: "return per peso of bonus"}));
 put("fig-causal", bars(D.causal, {left: 180, fmt: (v) => (v > 0 ? "+" : "") + v.toFixed(1) + "pp", label: "D7 lift by campaign family"}));
 put("fig-oct", bars(D.oct, {left: 130, fmt: (v) => (v / 1000).toFixed(1) + "K", label: "October bettors by league"}));
 put("fig-season", seasonChart(D.season));
@@ -740,7 +754,7 @@ function waffle() {
     const col = i % 10, row = Math.floor(i / 10), hold = row === 9;
     g += `<rect x="${col * (s + gap)}" y="${row * (s + gap)}" width="${s}" height="${s}" rx="3" fill="${hold ? "var(--slate)" : "var(--red)"}"/>`;
   }
-  return svg(218, 218, g, "90 percent get the offer, 10 percent holdout");
+  return svg(218, 218, g, "90 percent get the offer, 10 percent control group");
 }
 
 function ladder() {
@@ -784,7 +798,7 @@ put("fig-ndcg", bars([["Popular, 12 months", 0.618, 1], ["Same season last year"
 put("fig-ladder", ladder());
 put("fig-hours", hours());
 put("fig-cherry", cherry());
-put("fig-roi", bars([["Dec 2024", 2.3, 0], ["Jan 2025", 3.5, 1]], {left: 90, fmt: (v) => v.toFixed(1) + "× ROI", label: "GGE campaign ROI before and after the screen"}));
+put("fig-roi", bars([["Dec 2024", 2.3, 0], ["Jan 2025", 3.5, 1]], {left: 90, fmt: (v) => v.toFixed(1) + "× ROI", label: "Tournament campaign ROI before and after the screen"}));
 
 function leagueScatter() {
   // [name, new first-deposit %, kill rate %, bettors (K), label?]
