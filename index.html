@@ -252,9 +252,10 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
     <a href="#churn"><span>01</span>VIP churn</a>
     <a href="#crm"><span>02</span>CRM campaigns</a>
     <a href="#recsys"><span>03</span>League recommender</a>
-    <a href="#vip"><span>04</span>VIP tiers</a>
-    <a href="#auto"><span>05</span>Automation</a>
-    <a href="#gg"><span>06</span>GGPoker CRM</a>
+    <a href="#league"><span>04</span>League segments</a>
+    <a href="#vip"><span>05</span>VIP tiers</a>
+    <a href="#auto"><span>06</span>Automation</a>
+    <a href="#gg"><span>07</span>GGPoker CRM</a>
   </div>
 </nav>
 
@@ -387,9 +388,50 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
   </div>
 </article>
 
+<!-- 04 LEAGUE SEGMENTS -->
+<article class="case" id="league">
+  <div class="case-head"><span class="no">04</span><span>ArenaPlus · DigiPlus</span><span>2026</span><span class="tag">League Fan Dashboard</span><span class="tag">Segmentation · CRM targeting</span></div>
+  <div class="case-body">
+    <div class="text">
+      <h3>Every league brings a different kind of player</h3>
+      <div class="blk"><span class="lbl">The business problem</span>
+        <p>Sports promotions treated every league the same. CRM needed to know who actually bets each league, whether that league brings new players or keeps existing ones, and how much margin it leaves, before choosing the target, the offer and the timing.</p></div>
+      <div class="blk"><span class="lbl">What I built</span>
+        <p>A League Fan Dashboard over 115 leagues on both sportsbooks (SABA and Altenar, Oct 2024 to Oct 2026). For each league it shows demographics, product mix (sports only, mixed with casino), new versus existing players, live versus pre-match, VIP tiers, deposits and retention, plus a daily league brief posted to Lark.</p></div>
+      <div class="blk"><span class="lbl">What came out</span>
+        <p>Leaving the NBA aside, the big leagues split into four clear segments.</p>
+        <ul>
+          <li><b>MPBL is an acquisition league.</b> 47.5% of its 459K bettors made their first deposit in its window, the most of any big league. It keeps only 2.3% of turnover as GGR, the lowest of any big league.</li>
+          <li><b>Overseas leagues are a live, casino-adjacent product.</b> KBL, B.League, Turkey TBL and VTB take 85 to 95% of turnover live. About 9 in 10 of their bettors also play casino, and over 80% come back to bet sports in a later month. Turkey TBL takes 58% of its bets between 10pm and 6am.</li>
+          <li><b>National-team and fight nights draw event tourists.</b> 65% of FIBA Asia Cup bettors bet no other league, and only 57% come back to sports in a later month. Professional boxing is 94% pre-match with 58% retention.</li>
+          <li><b>Australia NBL has the most sports-only fans.</b> 18.8% of its bettors never touch casino, the highest outside the NBA.</li>
+        </ul></div>
+      <div class="calls"><span class="lbl">Calls I made to CRM</span>
+        <ol>
+          <li>Treat MPBL as an onboarding channel. Route its first-time depositors into the second-deposit journey, and watch its margin and sharp accounts closely.</li>
+          <li>Run overseas leagues as live cross-sell inventory for casino players, with live alerts at local tip-off times.</li>
+          <li>Give event bettors a follow-up journey into the next league on the calendar instead of a one-off bonus.</li>
+          <li>Keep sports-only fans on sports offers, not casino pushes.</li>
+        </ol></div>
+    </div>
+    <div class="figs">
+      <div class="fig"><div class="cap">Who brings new players, and what they leave behind</div><div class="sub">Share of bettors who made their first deposit in the league's window vs kill rate (GGR ÷ turnover). Bubble size = bettors. NBA excluded.</div><div id="fig-lscatter"></div></div>
+      <div class="fig"><div class="cap">Overseas leagues are bet live</div><div class="sub">Live share of turnover</div><div id="fig-llive"></div></div>
+      <div class="fig"><div class="cap">Event bettors don't come back</div><div class="sub">Share of the league's bettors who bet sports again in a later month</div><div id="fig-lret"></div></div>
+      <div class="fig"><div class="cap">Four segments, four CRM plays</div>
+        <div class="tiles">
+          <div class="tile"><span class="v">MPBL</span><span class="k">Acquisition. 47.5% first-time depositors, 2.3% hold</span></div>
+          <div class="tile"><span class="v">KBL · TBL · VTB</span><span class="k">Live and casino-adjacent. 85–95% live</span></div>
+          <div class="tile b"><span class="v">FIBA · Boxing</span><span class="k">Event tourists. 57–58% come back</span></div>
+          <div class="tile b"><span class="v">NBL</span><span class="k">Sports purists. 18.8% sports-only</span></div>
+        </div></div>
+    </div>
+  </div>
+</article>
+
 <!-- 04 VIP -->
 <article class="case" id="vip">
-  <div class="case-head"><span class="no">04</span><span>ArenaPlus · DigiPlus</span><span>2026</span><span class="tag">VIP program</span><span class="tag">Segmentation · Reporting</span></div>
+  <div class="case-head"><span class="no">05</span><span>ArenaPlus · DigiPlus</span><span>2026</span><span class="tag">VIP program</span><span class="tag">Segmentation · Reporting</span></div>
   <div class="case-body">
     <div class="text">
       <h3>Tiers that reflect what a player is worth now</h3>
@@ -419,7 +461,7 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
 
 <!-- 05 AUTOMATION -->
 <article class="case" id="auto">
-  <div class="case-head"><span class="no">05</span><span>ArenaPlus · DigiPlus</span><span>2025–2026</span><span class="tag">Python · Streamlit · Huawei Cloud</span><span class="tag">Lark</span></div>
+  <div class="case-head"><span class="no">06</span><span>ArenaPlus · DigiPlus</span><span>2025–2026</span><span class="tag">Python · Streamlit · Huawei Cloud</span><span class="tag">Lark</span></div>
   <div class="case-body">
     <div class="text">
       <h3>If I pull it twice, it gets automated</h3>
@@ -478,7 +520,7 @@ footer b { font: 700 16px var(--display); color: var(--ink) }
 
 <!-- 06 GGPOKER -->
 <article class="case" id="gg">
-  <div class="case-head"><span class="no">06</span><span>NSUSLAB · GGPoker</span><span>2023–2025</span><span class="tag">Poker CRM</span><span class="tag">Optimove · Snowflake · Tableau</span></div>
+  <div class="case-head"><span class="no">07</span><span>NSUSLAB · GGPoker</span><span>2023–2025</span><span class="tag">Poker CRM</span><span class="tag">Optimove · Snowflake · Tableau</span></div>
   <div class="case-body">
     <div class="text">
       <h3>Personalized win-back for a global poker room</h3>
@@ -743,6 +785,37 @@ put("fig-ladder", ladder());
 put("fig-hours", hours());
 put("fig-cherry", cherry());
 put("fig-roi", bars([["Dec 2024", 2.3, 0], ["Jan 2025", 3.5, 1]], {left: 90, fmt: (v) => v.toFixed(1) + "× ROI", label: "GGE campaign ROI before and after the screen"}));
+
+function leagueScatter() {
+  // [name, new first-deposit %, kill rate %, bettors (K), label?]
+  const L = [["PBA Cup", 27.0, 5.41, 556, 0], ["MPBL", 47.5, 2.34, 459, 1], ["PBA Commissioners", 36.7, 4.57, 436, 0], ["WNBA", 29.2, 5.70, 305, 0],
+    ["Australia NBL", 37.1, 5.79, 244, 1], ["Korea KBL", 42.1, 7.44, 228, 1], ["Japan B.League", 43.4, 7.66, 203, 0], ["Boxing", 43.7, 15.24, 183, 1],
+    ["China CBA", 40.3, 3.60, 178, 0], ["Turkey TBL", 40.4, 8.35, 178, 0], ["FIBA Asia Cup", 3.0, 11.87, 177, 1], ["NZ NBL", 29.6, 7.43, 172, 0],
+    ["Indonesia IBL", 32.9, 7.49, 171, 0], ["VTB League", 41.5, 8.86, 158, 0], ["Australia NBL1", 31.8, 5.18, 148, 0], ["PBA Governors", 35.9, 6.83, 138, 0]];
+  const W = 520, H = 280, l = 44, r = 16, t = 14, b = 36;
+  const x = (v) => l + (v / 52) * (W - l - r), y = (v) => H - b - (v / 16) * (H - t - b);
+  let g = "";
+  [0, 4, 8, 12, 16].forEach((v) => { g += `<line x1="${l}" x2="${W - r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${l - 8}" y="${y(v) + 4}" text-anchor="end">${v}%</text>`; });
+  [0, 10, 20, 30, 40, 50].forEach((v) => { g += `<text x="${x(v)}" y="${H - 16}" text-anchor="middle">${v}%</text>`; });
+  g += `<text x="${W - r}" y="${H - 2}" text-anchor="end">first-time depositors among the league's bettors →</text><text x="${l + 4}" y="${t + 2}">kill rate</text>`;
+  L.slice().sort((a, b) => b[3] - a[3]).forEach(([n, fd, k, u, lab]) => {
+    const rr = 4 + Math.sqrt(u) * 0.55, hl = n === "MPBL";
+    g += `<circle data-tip="${n}: ${u}K bettors, ${fd}% first-time depositors, kill ${k}%" cx="${x(fd)}" cy="${y(k)}" r="${rr.toFixed(1)}" fill="${hl ? "var(--red)" : lab ? "var(--blue)" : "var(--slate)"}" fill-opacity="${hl ? .85 : .55}" stroke="var(--panel)" stroke-width="2"/>`;
+  });
+  const pos = {"FIBA Asia Cup": [1, 0, "start"], "Boxing": [-1, 0, "end"], "MPBL": [0, -1, "middle"], "Korea KBL": [1, 0, "start"], "Australia NBL": [0, 1, "middle"]};
+  L.forEach(([n, fd, k, u, lab]) => {
+    if (!lab) return;
+    const rr = 4 + Math.sqrt(u) * 0.55, [dx, dy, anc] = pos[n];
+    g += `<text class="val" x="${x(fd) + dx * (rr + 5)}" y="${y(k) + (dy ? dy * (rr + 12) - (dy < 0 ? -4 : 0) : 4)}" text-anchor="${anc}" style="paint-order:stroke;stroke:var(--panel);stroke-width:3px">${n}</text>`;
+  });
+  return svg(W, H, g, "League first-time depositor share vs kill rate");
+}
+put("fig-lscatter", leagueScatter());
+put("fig-llive", bars([["Australia NBL1", 95.3, 1], ["Turkey TBL", 94.1, 1], ["VTB League", 93.5, 1], ["China CBA", 89.5, 1], ["Japan B.League", 88.0, 1], ["Korea KBL", 85.0, 1],
+  ["MPBL", 74.7, 0], ["PBA Commissioners", 70.0, 0], ["PBA Cup", 66.8, 0], ["FIBA Asia Cup", 57.1, 0], ["Boxing", 5.9, 0]],
+  {left: 150, fmt: (v) => v.toFixed(0) + "%", label: "Live share of turnover by league", axis: "overseas leagues highlighted"}));
+put("fig-lret", bars([["China CBA", 84.1, 0], ["Korea KBL", 82.2, 0], ["VTB League", 82.2, 0], ["Australia NBL", 69.8, 0], ["MPBL", 65.4, 0], ["PBA Cup", 65.3, 0], ["Boxing", 58.5, 1], ["FIBA Asia Cup", 57.3, 1]],
+  {left: 150, fmt: (v) => v.toFixed(0) + "%", label: "Retention by league", axis: "event leagues highlighted"}));
 
 // One shared tooltip for every mark with data-tip
 const tip = document.getElementById("tip");
