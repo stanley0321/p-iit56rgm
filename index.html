@@ -355,7 +355,7 @@ footer b { font: 800 20px var(--display); color: var(--ink); text-transform: upp
           <li>Difference-in-differences for older campaigns that had no holdout.</li>
         </ul></div>
       <div class="blk"><span class="lbl">What came out</span>
-        <p>For the first time the team could see real campaign efficiency. One slots campaign returned 1.34× its cost, not the 2.98× the old comparison reported. Churn prevention works where risk is real. It adds 25 points of return rate for players active one to three days, and nothing for players already active 20+ days.</p></div>
+        <p>For the first time the team could see real campaign efficiency. One slots campaign returned 1.34× its cost, not the 2.98× the old comparison reported. Churn prevention, read month by month, looked like it cost 15.6 points of retention. Read per run against its own holdout, it was a +3.6 point D7 lift, and the same method showed which campaigns returned less than they cost.</p></div>
       <div class="calls"><span class="lbl">What it changed</span>
         <ol>
           <li>The holdout became the standard way the team reads every lifecycle campaign.</li>
@@ -375,7 +375,7 @@ footer b { font: 800 20px var(--display); color: var(--ink); text-transform: upp
         <div class="waffle-row"><div id="fig-waffle"></div>
           <div class="wkeys"><div><span class="big r">90%</span><span>get the offer</span></div><div><span class="big">10%</span><span>holdout, no offer</span></div><div class="note">Compared at D7 and D30 on return rate, turnover, GGR and deposits</div></div></div></div>
       <div class="fig"><div class="cap">Return on one slots campaign</div><div class="sub">Old redeemer comparison vs a proper control</div><div id="fig-naive"></div></div>
-      <div class="fig"><div class="cap">Churn prevention only pays where the risk is</div><div class="sub">Lift in return rate vs holdout, by active days before the campaign (pp)</div><div id="fig-causal"></div></div>
+      <div class="fig"><div class="cap">D7 return-rate lift vs holdout, August 2026</div><div class="sub">Per-run randomized holdout, by campaign family (pp)</div><div id="fig-causal"></div></div>
     </div>
   </div>
 </article>
@@ -602,7 +602,7 @@ const D = {
   target: [["Past bettors of the league", 0.738, 1], ["Recent bettors of the sport", 0.564, 0], ["ALS model", 0.366, 0], ["Random", 0.278, 0]],
   imp: [["Days since last bet", 0.09], ["Active days, last 7", 0.0072], ["Active days, last 30", 0.0071], ["Days since last deposit", 0.0043], ["Active days, last 90", 0.003], ["Tenure", 0.0027], ["Activity trend", 0.0009]],
   churn: {"model": [[0.0, 0.0], [0.05, 0.354], [0.1, 0.576], [0.15, 0.723], [0.2, 0.813], [0.25, 0.873], [0.3, 0.908], [0.35, 0.932], [0.4, 0.95], [0.45, 0.967], [0.5, 0.976], [0.55, 0.984], [0.6, 0.987], [0.65, 0.99], [0.7, 0.995], [0.75, 0.996], [0.8, 0.996], [0.85, 0.998], [0.9, 0.999], [0.95, 0.999], [1.0, 1.0]], "rule": [[0.0, 0.0], [0.05, 0.341], [0.1, 0.558], [0.15, 0.697], [0.2, 0.772], [0.25, 0.824], [0.3, 0.858], [0.35, 0.888], [0.4, 0.914], [0.45, 0.936], [0.5, 0.956], [0.55, 0.961], [0.6, 0.967], [0.65, 0.973], [0.7, 0.974], [0.75, 0.979], [0.8, 0.984], [0.85, 0.988], [0.9, 0.993], [0.95, 0.997], [1.0, 1.0]]},
-  causal: [["1–3 days", 25.0], ["4–9 days", 9.4], ["10–19 days", 2.7], ["20+ days", -0.2]]
+  causal: [["Sport retention", 9.07, 0], ["Sport churn prevention", 3.98], ["Casino churn prevention", 3.62, 1], ["Casino reactivation", 3.42], ["Casino retention", 3.13], ["Sport reactivation", 2.04]]
 };
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 const svg = (w, h, inner, label) => `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}">${inner}</svg>`;
@@ -704,7 +704,7 @@ const put = (id, html) => { const el = document.getElementById(id); if (el) el.i
 put("fig-churn", churnCurve(D.churn));
 put("fig-imp", bars(D.imp, {left: 190, fmt: (v) => v.toFixed(3), label: "Permutation importance", axis: "AUC drop when shuffled"}));
 put("fig-naive", bars([["Redeemers vs non-redeemers", 2.98, 0], ["Holdout-based read", 1.34, 1]], {left: 190, fmt: (v) => v.toFixed(2) + "×", label: "Campaign return, old comparison vs holdout", axis: "return per peso of bonus"}));
-put("fig-causal", bars(D.causal, {left: 100, fmt: (v) => (v > 0 ? "+" : "") + v.toFixed(1) + "pp", label: "Churn prevention lift by prior activity days"}));
+put("fig-causal", bars(D.causal, {left: 180, fmt: (v) => (v > 0 ? "+" : "") + v.toFixed(1) + "pp", label: "D7 lift by campaign family"}));
 put("fig-oct", bars(D.oct, {left: 130, fmt: (v) => (v / 1000).toFixed(1) + "K", label: "October bettors by league"}));
 put("fig-season", seasonChart(D.season));
 put("fig-target", bars(D.target, {left: 190, fmt: (v) => Math.round(v * 100) + "%", label: "Promotion targeting hit rate by method"}));
