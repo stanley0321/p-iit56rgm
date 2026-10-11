@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Donghwan Yun · Portfolio</title>
+<meta name="description" content="Donghwan (Kyle) Yun, data scientist for sportsbook and casino operations: churn, CRM measurement, recommendation, VIP and automation work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+:root {
+  --bg: #0A0E13; --panel: #111821; --panel2: #17202B; --line: #243040; --line2: #2F3D50;
+  --ink: #F1F4F7; --ink2: #C9D1DA; --muted: #8E9AA9;
+  --red: #E8323F; --red-hot: #FF4552; --red-soft: rgba(232, 50, 63, .14);
+  --blue: #3D86E8; --amber: #BA800C; --green: #1FAE68; --slate: #4A5869;
+  --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --body: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body) }
+a { color: var(--red-hot); text-underline-offset: 3px }
+a:focus-visible { outline: 2px solid var(--red-hot); outline-offset: 3px }
+p { margin: 0 }
+h1, h2, h3 { margin: 0; font-family: var(--display); text-wrap: balance; letter-spacing: .005em }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px }
+
+/* Ticker */
+.ticker { background: var(--red); color: #fff; font: 600 13px var(--mono); letter-spacing: .04em; overflow: hidden }
+.ticker .wrap { display: flex; gap: 0; align-items: stretch; padding-inline: 0 }
+.ticker .live { background: #0A0E13; color: var(--red-hot); padding: 9px 14px; display: flex; align-items: center; gap: 8px; flex: none }
+.ticker .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--red-hot); box-shadow: 0 0 0 3px rgba(255, 69, 82, .25) }
+.ticker .items { display: flex; gap: 28px; padding: 9px 16px; white-space: nowrap; overflow-x: auto; scrollbar-width: none }
+.ticker .items::-webkit-scrollbar { display: none }
+.ticker b { font-weight: 700 }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background:
+  radial-gradient(900px 420px at 85% 0%, rgba(232, 50, 63, .22), transparent 60%),
+  linear-gradient(180deg, #0D131A, var(--bg)) }
+.hero svg.court { position: absolute; right: -120px; top: -40px; width: 760px; max-width: none; opacity: .16; pointer-events: none }
+.hero .wrap { position: relative; padding-block: 56px 40px; display: grid; gap: 22px }
+.kicker { font: 600 13px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--red-hot) }
+.hero h1 { font-size: clamp(46px, 8vw, 92px); line-height: .9; font-weight: 800; text-transform: uppercase }
+.hero h1 span { color: var(--red-hot) }
+.lede { font-size: clamp(18px, 2.2vw, 22px); color: var(--ink2); max-width: 58ch; line-height: 1.45 }
+.lede b { color: var(--ink); font-weight: 600 }
+.links { display: flex; flex-wrap: wrap; gap: 8px 22px; font: 500 14px var(--mono); color: var(--muted) }
+.board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line2); background: rgba(17, 24, 33, .85); border-radius: 6px; overflow: hidden }
+.board div { padding: 14px 16px 12px; border-right: 1px solid var(--line); display: grid; gap: 2px; min-width: 0 }
+.board div:last-child { border-right: 0 }
+.board .v { font: 800 32px/1 var(--display); letter-spacing: .01em }
+.board .v.r { color: var(--red-hot) }
+.board .k { font-size: 13px; color: var(--muted); line-height: 1.35 }
+
+/* Nav */
+nav.fixtures { position: sticky; top: 0; z-index: 5; background: rgba(10, 14, 19, .92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line) }
+nav.fixtures .wrap { display: flex; gap: 6px; overflow-x: auto; padding-block: 10px; scrollbar-width: none }
+nav.fixtures .wrap::-webkit-scrollbar { display: none }
+nav.fixtures a { flex: none; text-decoration: none; color: var(--ink2); font: 600 14px var(--body); border: 1px solid var(--line2); background: var(--panel); padding: 6px 12px; border-radius: 999px; display: flex; gap: 8px; align-items: center }
+nav.fixtures a span { font: 700 11px var(--mono); color: var(--red-hot) }
+nav.fixtures a:hover { border-color: var(--red); color: var(--ink) }
+
+/* Cases */
+main .wrap { display: grid; gap: 30px; padding-block: 36px 60px }
+.section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap }
+.section-title h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; text-transform: uppercase }
+.section-title p { color: var(--muted); max-width: 60ch }
+.case { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; scroll-margin-top: 64px }
+.case-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 20px; background: var(--panel2); border-bottom: 1px solid var(--line); font: 500 12.5px var(--mono); color: var(--muted); letter-spacing: .04em; text-transform: uppercase }
+.case-head .no { background: var(--red); color: #fff; font-weight: 700; padding: 2px 8px; border-radius: 3px }
+.case-head .tag { border: 1px solid var(--line2); padding: 1px 8px; border-radius: 3px; color: var(--ink2) }
+.case-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 28px 36px; padding: 24px 20px 26px }
+.case h3 { font-size: clamp(26px, 3.4vw, 36px); line-height: 1.02; font-weight: 800; margin-bottom: 4px }
+.text { display: grid; gap: 16px; align-content: start; min-width: 0 }
+.blk { display: grid; gap: 6px }
+.blk .lbl { font: 700 11.5px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted) }
+.blk p, .blk li { color: var(--ink2) }
+.blk ul { margin: 0; padding-left: 18px; display: grid; gap: 6px }
+.calls { border: 1px solid rgba(232, 50, 63, .45); background: var(--red-soft); border-radius: 6px; padding: 14px 16px; display: grid; gap: 8px }
+.calls .lbl { color: var(--red-hot) }
+.calls ol { margin: 0; padding-left: 20px; display: grid; gap: 7px }
+.calls li { color: var(--ink) }
+.calls li::marker { font: 700 13px var(--mono); color: var(--red-hot) }
+.note { font-size: 13.5px; color: var(--muted) }
+.figs { display: grid; gap: 14px; align-content: start; min-width: 0 }
+.fig { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px 12px; display: grid; gap: 10px; min-width: 0 }
+.fig .cap { font: 600 14px var(--body); color: var(--ink) }
+.fig .sub { font-size: 12.5px; color: var(--muted); margin-top: -6px }
+.fig svg { width: 100%; height: auto; display: block }
+svg text { fill: var(--muted); font: 12px var(--mono) }
+svg .lbl { fill: var(--ink2); font: 500 13px var(--body) }
+svg .val { fill: var(--ink); font: 600 12px var(--mono) }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px }
+.tile { background: var(--panel2); border-radius: 6px; padding: 12px 14px; display: grid; gap: 2px; border-left: 3px solid var(--red) }
+.tile.b { border-left-color: var(--slate) }
+.tile .v { font: 800 30px/1.05 var(--display) }
+.tile .k { font-size: 13px; color: var(--muted); line-height: 1.35 }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--ink2) }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px }
+
+/* Diagrams */
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px }
+.flow .s { font-size: 13px; border: 1px solid var(--line2); background: var(--panel2); padding: 6px 10px; border-radius: 4px; color: var(--ink2) }
+.flow .s.hot { border-color: var(--red); color: #fff; background: var(--red-soft); font-weight: 600 }
+.flow .s.dim { border-style: dashed; color: var(--muted) }
+.flow .a { color: var(--muted); font-family: var(--mono) }
+.timeline { display: grid; grid-template-columns: 6fr 1fr 1fr; gap: 3px; font: 600 12px var(--mono); text-align: center }
+.timeline div { padding: 10px 4px; border-radius: 3px }
+.timeline .tr { background: var(--slate); color: #fff }
+.timeline .va { background: var(--blue); color: #fff }
+.timeline .te { background: var(--red); color: #fff }
+.tl-axis { display: flex; justify-content: space-between; font: 12px var(--mono); color: var(--muted) }
+.week { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px }
+.week div { background: var(--panel2); border-radius: 5px; padding: 10px; display: grid; gap: 4px; border-top: 3px solid var(--red); min-width: 0 }
+.week .d { font: 700 12px var(--mono); color: var(--muted); letter-spacing: .1em }
+.week b { font: 700 17px/1.1 var(--display); text-transform: uppercase }
+.week span { font-size: 12px; color: var(--muted); line-height: 1.35 }
+.alert { border-radius: 6px; overflow: hidden; border: 1px solid var(--line2); background: #0E141B }
+.alert .bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: var(--panel2); padding: 8px 12px; font: 600 12.5px var(--mono); flex-wrap: wrap }
+.alert .bar .pill { background: var(--red); color: #fff; padding: 1px 8px; border-radius: 999px; font-size: 11px }
+.alert table { width: 100%; border-collapse: collapse; font: 12.5px var(--mono) }
+.alert th { text-align: left; color: var(--muted); font-weight: 500; padding: 6px 12px; border-bottom: 1px solid var(--line) }
+.alert td { padding: 6px 12px; border-bottom: 1px solid var(--line); color: var(--ink2) }
+.alert td.p { text-align: right; color: var(--ink); font-weight: 700 }
+.alert th.p { text-align: right }
+.meter { display: inline-block; width: 46px; height: 6px; background: var(--line2); border-radius: 3px; margin-right: 6px; vertical-align: 1px; overflow: hidden }
+.meter i { display: block; height: 100%; background: var(--red) }
+.vs { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; align-items: stretch }
+.vs .side { background: var(--panel2); border-radius: 6px; padding: 12px 14px; display: grid; gap: 6px; align-content: start; min-width: 0 }
+.vs .side.new { border: 1px solid var(--red); background: var(--red-soft) }
+.vs .side b { font: 700 13px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
+.vs .side.new b { color: var(--red-hot) }
+.vs .side p { font-size: 14px; color: var(--ink2) }
+.vs .mid { align-self: center; font: 800 22px var(--display); color: var(--red-hot) }
+.tiers { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 3px; align-items: end; height: 70px }
+.tiers i { display: block; background: var(--slate); border-radius: 2px 2px 0 0 }
+.tiers i.on { background: var(--red) }
+.pipe { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; position: relative }
+.pipe div { background: var(--panel2); border-radius: 6px; padding: 10px; display: grid; gap: 4px; align-content: start; min-width: 0; position: relative }
+.pipe div:not(:last-child)::after { content: "→"; position: absolute; right: -8px; top: 50%; transform: translate(50%, -50%); color: var(--red-hot); font: 700 14px var(--mono); z-index: 1 }
+.pipe b { font: 700 15px/1.15 var(--display); text-transform: uppercase }
+.pipe span { font-size: 12px; color: var(--muted); line-height: 1.35 }
+.pulse { border: 1px solid var(--line2); border-radius: 6px; overflow: hidden; background: #0E141B }
+.pulse .top { background: #1A2533; padding: 8px 12px; display: flex; justify-content: space-between; font: 600 12.5px var(--mono); gap: 8px; flex-wrap: wrap }
+.pulse .rows { display: grid; gap: 6px; padding: 10px 12px }
+.pulse .row { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 10px; align-items: center; font-size: 13px; color: var(--ink2) }
+.pulse .row b { font: 600 12px var(--mono); color: var(--muted) }
+.pulse .ph { height: 8px; border-radius: 4px; background: var(--line2) }
+.pulse .ph.r { background: linear-gradient(90deg, var(--red) 0 38%, var(--line2) 38%) }
+.earlier { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.mini { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 18px 20px; display: grid; gap: 8px; align-content: start }
+.mini .case-meta { font: 500 12px var(--mono); color: var(--muted); letter-spacing: .04em; text-transform: uppercase }
+.mini h3 { font-size: 24px; font-weight: 800 }
+.mini p { color: var(--ink2) }
+footer { border-top: 1px solid var(--line); background: var(--panel) }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 22px; font-size: 14px; color: var(--muted) }
+footer b { font: 800 20px var(--display); color: var(--ink); text-transform: uppercase; letter-spacing: .02em }
+
+.career { display: grid; gap: 14px }
+.waffle-row { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 18px; align-items: center }
+#fig-waffle svg { max-width: 200px }
+.wkeys { display: grid; gap: 10px }
+.wkeys div { display: grid }
+.big { font: 800 34px/1 var(--display); color: var(--ink) }
+.big.r { color: var(--red-hot) }
+.wkeys span:not(.big) { font-size: 13px; color: var(--muted) }
+.cover { display: grid; gap: 12px }
+.cover > div { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 2px 12px; align-items: center }
+.cover span:not(.big) { font-size: 13px; color: var(--ink2) }
+.cover .big { grid-row: span 2 }
+.cbar { height: 10px; background: var(--line2); border-radius: 5px; overflow: hidden }
+.cbar i { display: block; height: 100%; background: var(--slate); min-width: 3px }
+.cbar i.on { background: var(--red) }
+.loop { display: grid; gap: 8px }
+.lrow { display: flex; flex-wrap: wrap; align-items: center; gap: 5px }
+.lrow b { font: 700 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); width: 56px }
+.lrow .s { font-size: 12.5px; border: 1px solid var(--line2); background: var(--panel2); padding: 4px 8px; border-radius: 4px; color: var(--ink2) }
+.lrow .s.hot { border-color: var(--red); background: var(--red-soft); color: #fff; font-weight: 600 }
+.lrow .a { color: var(--muted); font-family: var(--mono) }
+.lrow .clock { font: 500 12px var(--mono); color: var(--muted); margin-left: auto }
+.lrow .clock.r { color: var(--red-hot) }
+.teams { display: flex; flex-wrap: wrap; gap: 6px }
+.teams span { font: 600 12px var(--mono); border-radius: 999px; padding: 3px 10px; background: var(--panel2); color: var(--ink2); border: 1px solid var(--line2) }
+.kit { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px }
+.kitcol { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 10px; align-content: start; border-top: 3px solid var(--red) }
+.kitcol b { font: 800 20px var(--display); text-transform: uppercase }
+.chips { display: flex; flex-wrap: wrap; gap: 6px }
+.chips span { font-size: 13px; padding: 3px 9px; border-radius: 4px; background: var(--panel2); color: var(--ink2); border: 1px solid var(--line2) }
+.chips span.on { border-color: rgba(232, 50, 63, .6); color: #fff; background: var(--red-soft) }
+@media (max-width: 900px) { .kit { grid-template-columns: 1fr 1fr } }
+@media (max-width: 560px) { .kit { grid-template-columns: 1fr } .waffle-row { grid-template-columns: 1fr } .lrow .clock { margin-left: 0; width: 100% } }
+
+#tip { position: fixed; z-index: 20; pointer-events: none; background: #fff; color: #0A0E13; font: 600 12.5px var(--body); padding: 6px 9px; border-radius: 4px; box-shadow: 0 6px 18px rgba(0, 0, 0, .4); opacity: 0; transition: opacity .1s; max-width: 260px }
+[data-tip] { cursor: default }
+[data-tip]:hover { opacity: .85 }
+
+@media (min-width: 901px) { .case-body > .text { position: sticky; top: 72px; align-self: start } }
+@media (max-width: 900px) {
+  .case-body { grid-template-columns: 1fr }
+  .board { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .board div { border-bottom: 1px solid var(--line) }
+  .board div:nth-child(2n) { border-right: 0 }
+  .board div:last-child { grid-column: 1 / -1; border-bottom: 0 }
+  .earlier { grid-template-columns: 1fr }
+}
+@media (max-width: 560px) {
+  .wrap { padding-inline: 16px }
+  .case-body { padding: 18px 16px 20px }
+  .case-head { padding: 10px 16px }
+  .week, .pipe { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .pipe div:nth-child(2)::after { display: none }
+  .tiles { grid-template-columns: 1fr 1fr }
+  .vs { grid-template-columns: 1fr }
+  .vs .mid { justify-self: center; transform: rotate(90deg) }
+  .pulse .row { grid-template-columns: 100px minmax(0, 1fr) }
+  .hero svg.court { right: -320px; opacity: .1 }
+}
+@media print {
+  nav.fixtures, .ticker, #tip { display: none }
+  .case { break-inside: avoid }
+}
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-label="Headline results">
+  <div class="wrap">
+    <span class="live">Kyle Yun</span>
+    <div class="items">
+      <span>VIP CHURN MODEL <b>AUC 0.91</b></span>
+      <span>PROMO COST <b>−PHP 10M / YR</b></span>
+      <span>CRM HOLDOUT <b>10% ON EVERY SEND</b></span>
+      <span>OPS PLATFORM <b>23 TOOLS · 5 TEAMS</b></span>
+      <span>POKER WIN-BACK PILOT <b>3.1× ROI</b></span>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="court" viewBox="0 0 940 500" aria-hidden="true" fill="none" stroke="#fff" stroke-width="3">
+    <rect x="10" y="10" width="920" height="480" rx="6"/>
+    <line x1="470" y1="10" x2="470" y2="490"/>
+    <circle cx="470" cy="250" r="70"/><circle cx="470" cy="250" r="22"/>
+    <rect x="10" y="170" width="180" height="160"/><circle cx="190" cy="250" r="60"/>
+    <path d="M10 40 H90 A220 220 0 0 1 90 460 H10"/>
+    <rect x="750" y="170" width="180" height="160"/><circle cx="750" cy="250" r="60"/>
+    <path d="M930 40 H850 A220 220 0 0 0 850 460 H930"/>
+    <circle cx="880" cy="250" r="12"/><circle cx="60" cy="250" r="12"/>
+  </svg>
+  <div class="wrap">
+    <div class="kicker">Data Scientist · Sportsbook &amp; Casino Operations</div>
+    <h1>Donghwan <span>(Kyle)</span> Yun</h1>
+    <p class="lede">I put data science to work <b>inside live operations</b>. I find the insight that changes a decision, build the model behind it and ship it to the CRM, VIP and marketing teams who act on it every week. Anything I would have to pull twice gets automated.</p>
+    <div class="links">
+      <a href="mailto:yun090914@gmail.com">yun090914@gmail.com</a>
+      <span>+63 968 124 9771</span>
+      <span>Manila, Philippines · open to remote</span>
+    </div>
+    <div class="board">
+      <div><span class="v">8+ yrs</span><span class="k">in analytics and modeling</span></div>
+      <div><span class="v">3 yrs</span><span class="k">iGaming: sportsbook, casino, poker</span></div>
+      <div><span class="v r">PHP 10M</span><span class="k">promotion cost saved per year</span></div>
+      <div><span class="v">23</span><span class="k">production tools I built and run</span></div>
+      <div><span class="v">KAIST</span><span class="k">M.S. Management Engineering</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="fixtures" aria-label="Case studies">
+  <div class="wrap">
+    <a href="#churn"><span>01</span>VIP churn</a>
+    <a href="#crm"><span>02</span>CRM campaigns</a>
+    <a href="#recsys"><span>03</span>League recommender</a>
+    <a href="#vip"><span>04</span>VIP tiers</a>
+    <a href="#auto"><span>05</span>Automation</a>
+    <a href="#gg"><span>06</span>GGPoker CRM</a>
+    <a href="#kida"><span>07</span>Text early warning</a>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<section class="career" aria-label="Career timeline">
+  <div class="section-title"><h2>Career</h2><p>Research and modeling first, then six years putting it to work in CRM and live operations.</p></div>
+  <div class="fig"><div id="fig-career"></div></div>
+</section>
+
+<div class="section-title">
+  <h2>Selected work</h2>
+  <p>Each case starts from the business problem, then what I built, then the calls it led to. Player-level data never leaves the employer. Charts show aggregates only.</p>
+</div>
+
+<!-- 01 CHURN -->
+<article class="case" id="churn">
+  <div class="case-head"><span class="no">01</span><span>ArenaPlus · DigiPlus</span><span>2026</span><span class="tag">Player 360</span><span class="tag">Gradient boosting · LogReg · RF</span></div>
+  <div class="case-body">
+    <div class="text">
+      <h3>Which VIPs are about to go quiet?</h3>
+      <div class="blk"><span class="lbl">The business problem</span>
+        <p>A handful of high-value players carry a large share of GGR. By the time a VIP manager notices one has stopped betting, the player is usually gone. The team needed a short daily list of who to call next, not another report.</p></div>
+      <div class="blk"><span class="lbl">What I built</span>
+        <p>The churn model behind the Player 360 dashboard. I fixed a cut-off date, trained on the months before it and validated on the most recent months, so the model is always tested on a period it has never seen. Fifteen monthly snapshots and about 30 behavioral features from bets, deposits, withdrawals and active days. I benchmarked it against the rule the CRM team already used, days since the last bet.</p></div>
+      <div class="blk"><span class="lbl">What came out</span>
+        <p>AUC 0.91. The riskiest 10% of players hold 58% of next month's churners. The bigger finding was how homogeneous VIP behavior is. Recency and active days carry almost all of the signal, which is why the simple rule already scores 0.885. The model's value is in ranking and calibration, so the top of the list is the right top.</p></div>
+      <div class="calls"><span class="lbl">What it changed</span>
+        <ol>
+          <li>A daily alert of the top 100 at-risk VIPs now sits in the Brand Marketing VIP dashboard, for telesales and campaign follow-up.</li>
+          <li>The CRM team got evidence that a recency-based trigger is a sound first filter for VIP churn prevention, with the model as the ranking layer on top.</li>
+        </ol></div>
+    </div>
+    <div class="figs">
+      <div class="fig"><div class="cap">Time-based design: train on the past, test on what came after</div>
+        <div class="timeline"><div class="tr">Train · earlier monthly snapshots</div><div class="va">Tune</div><div class="te">Test</div></div>
+        <div class="tl-axis"><span>Jul 2025</span><span>cut-off</span><span>Aug</span><span>Sep 2026</span></div></div>
+      <div class="fig"><div class="cap">Share of next month's churners caught by the riskiest k% of players</div><div class="sub">Test month, September 2026</div><div id="fig-churn"></div>
+        <div class="legend"><span><i style="background:var(--red)"></i>Gradient boosting, AUC 0.911</span><span><i style="background:var(--blue)"></i>Days-since-last-bet rule, AUC 0.885</span></div></div>
+      <div class="fig"><div class="cap">When it says 50%, about half churn</div><div class="sub">Calibration on the test month, predicted vs observed churn by risk decile</div><div id="fig-calib"></div></div>
+      <div class="fig"><div class="cap">VIP churn is mostly one signal</div><div class="sub">Drop in test AUC when each feature is shuffled</div><div id="fig-imp"></div></div>
+      <div class="fig"><div class="cap">The daily alert, as the VIP team sees it</div><div class="sub">Illustration. IDs masked, scores are examples.</div>
+        <div class="alert">
+          <div class="bar"><span>VIP churn watch · Top 100</span><span class="pill">Updated daily 09:00</span></div>
+          <table>
+            <thead><tr><th>Player</th><th>Tier</th><th>Last bet</th><th class="p">Churn risk</th></tr></thead>
+            <tbody>
+              <tr><td>VIP ••••4821</td><td>V7 · Casino</td><td>9 days</td><td class="p"><span class="meter"><i style="width:91%"></i></span>0.91</td></tr>
+              <tr><td>VIP ••••0377</td><td>V6 · Sports</td><td>12 days</td><td class="p"><span class="meter"><i style="width:87%"></i></span>0.87</td></tr>
+              <tr><td>VIP ••••7745</td><td>V8 · Casino</td><td>6 days</td><td class="p"><span class="meter"><i style="width:82%"></i></span>0.82</td></tr>
+              <tr><td>VIP ••••1093</td><td>V5 · Sports</td><td>15 days</td><td class="p"><span class="meter"><i style="width:79%"></i></span>0.79</td></tr>
+            </tbody>
+          </table>
+        </div></div>
+    </div>
+  </div>
+</article>
+
+<!-- 02 CRM -->
+<article class="case" id="crm">
+  <div class="case-head"><span class="no">02</span><span>ArenaPlus · DigiPlus</span><span>2025–2026</span><span class="tag">CRM</span><span class="tag">Holdouts · Difference-in-differences</span></div>
+  <div class="case-body">
+    <div class="text">
+      <h3>Four campaigns a week, measured honestly</h3>
+      <div class="blk"><span class="lbl">The business problem</span>
+        <p>CRM ran four types of campaign every week: retention, reactivation, churn prevention and cross-sell. Reports compared players who redeemed a bonus with players who did not. That credits the bonus with whatever made those players active in the first place, so every campaign looked profitable.</p></div>
+      <div class="blk"><span class="lbl">What I built</span>
+        <ul>
+          <li>The weekly target-list engine for all four campaign types, with one generator per day.</li>
+          <li>A 10% holdout on every send, stratified by turnover, GGR, deposits and withdrawals so target and control start out alike.</li>
+          <li>Difference-in-differences for older campaigns that had no holdout.</li>
+        </ul></div>
+      <div class="blk"><span class="lbl">What came out</span>
+        <p>For the first time the team could see real campaign efficiency. One slots campaign returned 1.34× its cost, not the 2.98× the old comparison reported. Churn prevention works where risk is real. It adds 25 points of return rate for players active one to three days, and nothing for players already active 20+ days.</p></div>
+      <div class="calls"><span class="lbl">What it changed</span>
+        <ol>
+          <li>The holdout became the standard way the team reads every lifecycle campaign.</li>
+          <li>Offers moved away from players who would have bet anyway and toward high-value segments: VIPs with no recent bets, lapsed VIPs and local high-value players. Promotion cost fell by PHP 10M a year while betting volume (PHP 5.6B) and ARPU (PHP 27) held.</li>
+        </ol></div>
+    </div>
+    <div class="figs">
+      <div class="fig"><div class="cap">The weekly CRM cycle</div>
+        <div class="week">
+          <div><span class="d">MON</span><b>Retention</b><span>Keep active players betting</span></div>
+          <div><span class="d">TUE</span><b>Reactivation</b><span>Bring back dormant players</span></div>
+          <div><span class="d">TUE</span><b>Churn prevention</b><span>Catch players starting to slip</span></div>
+          <div><span class="d">THU</span><b>Cross-sell</b><span>Casino ↔ sports</span></div>
+        </div>
+        <div class="flow"><span class="s">Eligible players</span><span class="a">→</span><span class="s">Stratify</span><span class="a">→</span><span class="s hot">90% offer</span><span class="a">+</span><span class="s dim">10% holdout</span><span class="a">→</span><span class="s">Read at D7 / D30</span></div></div>
+      <div class="fig"><div class="cap">Every send keeps 1 in 10 players back</div><div class="sub">Each square = 1% of eligible players. Stratified so both groups start out alike.</div>
+        <div class="waffle-row"><div id="fig-waffle"></div>
+          <div class="wkeys"><div><span class="big r">90%</span><span>get the offer</span></div><div><span class="big">10%</span><span>holdout, no offer</span></div><div class="note">Compared at D7 and D30 on return rate, turnover, GGR and deposits</div></div></div></div>
+      <div class="fig"><div class="cap">Return on one slots campaign</div><div class="sub">Old redeemer comparison vs a proper control</div><div id="fig-naive"></div></div>
+      <div class="fig"><div class="cap">Churn prevention only pays where the risk is</div><div class="sub">Lift in return rate vs holdout, by active days before the campaign (pp)</div><div id="fig-causal"></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- 03 RECSYS -->
+<article class="case" id="recsys">
+  <div class="case-head"><span class="no">03</span><span>ArenaPlus · DigiPlus</span><span>2026</span><span class="tag">Sportsbook</span><span class="tag">Implicit ALS · NDCG · Bootstrap</span></div>
+  <div class="case-body">
+    <div class="text">
+      <h3>The Philippines bets basketball. The calendar decides which league.</h3>
+      <div class="blk"><span class="lbl">The business problem</span>
+        <p>Sports promotions are planned one league at a time. CRM wanted to know which players to send a league promotion to, and whether a personalized model could pick them better than the lists they already pulled.</p></div>
+      <div class="blk"><span class="lbl">What I built</span>
+        <p>A league recommender on a year of SABA and Altenar bets from 69K active sportsbook players. Implicit-feedback ALS, written both with a library and as a NumPy solver, against four baselines. Evaluated on held-out October bets with NDCG@10 and bootstrap intervals, and as a promotion-targeting test on the nine biggest leagues.</p></div>
+      <div class="blk"><span class="lbl">What came out</span>
+        <p>Every one of the nine biggest October leagues was basketball. Demand switches on and off with the season. Popularity over a full year (NDCG 0.62) beat ALS (0.40), and popularity from the last 30 days collapsed to 0.31 because the window sat in the NBA off-season. For league promotions, players who had bet that league before hit 74%, against 37% for the model's picks. ALS ranks a player's taste, not their volume, so its lists filled with light bettors.</p></div>
+      <div class="calls"><span class="lbl">Calls I made to CRM</span>
+        <ol>
+          <li>Time league promotions to the basketball calendar, such as the NBA and PBA season openers in October, not to last month's traffic.</li>
+          <li>Target a league promotion at that league's past bettors first. The model does not beat this list.</li>
+          <li>Use the history + ALS blend where rules cannot reach, such as discovery and the home-page "recommended" slot. It covers 16% of the catalogue against 0.1% for popularity.</li>
+        </ol></div>
+    </div>
+    <div class="figs">
+      <div class="fig"><div class="cap">October's biggest leagues are all basketball</div><div class="sub">Distinct bettors, 1–10 October 2026</div><div id="fig-oct"></div></div>
+      <div class="fig"><div class="cap">The season trap</div><div class="sub">Monthly bettors per league, each league's peak = 100. Shaded: gap month and test month.</div><div id="fig-season"></div></div>
+      <div class="fig"><div class="cap">Who to send a league promotion to</div><div class="sub">Hit rate of the top 1,000 players per league, nine leagues</div><div id="fig-target"></div></div>
+      <div class="fig"><div class="cap">Result board, NDCG@10 on October bets</div><div class="sub">68,864 players. Every gap has a 95% bootstrap interval that excludes zero.</div><div id="fig-ndcg"></div></div>
+      <div class="fig"><div class="cap">What the model adds: reach into the long tail</div><div class="sub">Share of the league catalogue that appears in anyone's top 10</div>
+        <div class="cover">
+          <div><span class="big">0.1%</span><span>Popularity</span><div class="cbar"><i style="width:0.6%"></i></div></div>
+          <div><span class="big r">16%</span><span>History + ALS blend</span><div class="cbar"><i class="on" style="width:16%"></i></div></div>
+        </div></div>
+    </div>
+  </div>
+</article>
+
+<!-- 04 VIP -->
+<article class="case" id="vip">
+  <div class="case-head"><span class="no">04</span><span>ArenaPlus · DigiPlus</span><span>2026</span><span class="tag">VIP program</span><span class="tag">Segmentation · Reporting</span></div>
+  <div class="case-body">
+    <div class="text">
+      <h3>Tiers that reflect what a player is worth now</h3>
+      <div class="blk"><span class="lbl">The business problem</span>
+        <p>VIP tiers were set by a player's historic maximum monthly turnover, across all products together. One big month could hold a player in a high tier long after they slowed down. A sports bettor and a casino player with the same turnover landed in the same tier, even though they behave and earn very differently.</p></div>
+      <div class="blk"><span class="lbl">What I built</span>
+        <p>Separate tier ladders for sports and non-sports (casino and slots), each based on monthly average turnover rather than the all-time peak, from V0 to V8.</p></div>
+      <div class="calls"><span class="lbl">What it changed</span>
+        <ol>
+          <li>Tiers now track each player's current value by product, so tier movement means something.</li>
+          <li>The new tiers became the base for VIP analysis and a standard metric in weekly and monthly management reports.</li>
+        </ol></div>
+    </div>
+    <div class="figs">
+      <div class="fig"><div class="cap">Before and after</div>
+        <div class="vs">
+          <div class="side"><b>Before</b><p>Historic maximum monthly turnover</p><p>One ladder for all products</p><p>A single peak month sets the tier</p></div>
+          <div class="mid">→</div>
+          <div class="side new"><b>After</b><p>Monthly average turnover</p><p>Two ladders: sports and non-sports</p><p>Tier follows current play</p></div>
+        </div></div>
+      <div class="fig"><div class="cap">Two ladders instead of one</div><div class="sub">Tier shape, V0 to V8. Each product ranks players against its own scale.</div><div id="fig-ladder"></div></div>
+      <div class="fig"><div class="cap">One player, two readings</div><div class="sub">Illustration of a player with one big month, then a slowdown</div><div id="fig-vip"></div>
+        <div class="legend"><span><i style="background:var(--slate)"></i>Monthly turnover</span><span><i style="background:var(--blue)"></i>Historic max (old basis)</span><span><i style="background:var(--red)"></i>Average (new basis)</span></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- 05 AUTOMATION -->
+<article class="case" id="auto">
+  <div class="case-head"><span class="no">05</span><span>ArenaPlus · DigiPlus</span><span>2025–2026</span><span class="tag">Python · Streamlit · Huawei Cloud</span><span class="tag">Lark</span></div>
+  <div class="case-body">
+    <div class="text">
+      <h3>If I pull it twice, it gets automated</h3>
+      <div class="blk"><span class="lbl">The business problem</span>
+        <p>Every team ran the same loop: query the warehouse console, paste into Excel, post to Lark. CRM lists, weekly reports and risk files were rebuilt by hand each week, and numbers drifted between versions.</p></div>
+      <div class="blk"><span class="lbl">What I built</span>
+        <ul>
+          <li>A Python and Streamlit operations platform with 23 production tools for CRM, fraud and risk, BI, community and analytics.</li>
+          <li>The Weekly Pulse and the weekly CRM KPI report for the GM and Head of CRM, generated and delivered to Lark without manual steps.</li>
+          <li>A daily headless report run by a scheduler, about 280 versioned SQL queries, and an audit link on every statement.</li>
+          <li>The Brand Marketing dashboard, deployed on Huawei Cloud as an image.</li>
+        </ul></div>
+      <div class="calls"><span class="lbl">What it changed</span>
+        <ol>
+          <li>About 10 hours a week of manual pulls are gone, and every recurring extraction runs on its own.</li>
+          <li>Teams get the same number from the same query, so meetings start from the result instead of reconciling spreadsheets.</li>
+        </ol></div>
+      <p class="note">I use AI coding agents across the whole cycle, from planning and build to code review, which is how one person keeps 23 tools in production.</p>
+    </div>
+    <div class="figs">
+      <div class="fig"><div class="cap">From warehouse to the team that acts</div>
+        <div class="pipe">
+          <div><b>MaxCompute</b><span>Alibaba Cloud warehouse, read-only runner</span></div>
+          <div><b>Python + SQL</b><span>Versioned queries, scheduled jobs</span></div>
+          <div><b>Apps</b><span>Streamlit platform, Brand Marketing dashboard</span></div>
+          <div><b>Delivery</b><span>Lark Drive and chat, Huawei Cloud</span></div>
+        </div></div>
+      <div class="fig"><div class="cap">The weekly loop, before and after</div>
+        <div class="loop">
+          <div class="lrow"><b>Before</b><span class="s">Query console</span><span class="a">→</span><span class="s">Export</span><span class="a">→</span><span class="s">Excel</span><span class="a">→</span><span class="s">Check</span><span class="a">→</span><span class="s">Post to Lark</span><span class="clock">by hand, every week</span></div>
+          <div class="lrow"><b>After</b><span class="s hot">Scheduled job</span><span class="a">→</span><span class="s hot">Lark</span><span class="clock r">0 manual steps</span></div>
+        </div>
+        <div id="fig-hours"></div>
+        <div class="teams"><span>CRM Ops</span><span>Fraud &amp; Risk</span><span>Analytics &amp; BI</span><span>Community</span><span>BI</span></div></div>
+      <div class="fig"><div class="cap">Platform at a glance</div>
+        <div class="tiles">
+          <div class="tile"><span class="v">23</span><span class="k">production tools</span></div>
+          <div class="tile"><span class="v">5</span><span class="k">teams served</span></div>
+          <div class="tile"><span class="v">~10 h</span><span class="k">manual work saved per week</span></div>
+          <div class="tile b"><span class="v">~280</span><span class="k">versioned SQL queries</span></div>
+        </div></div>
+      <div class="fig"><div class="cap">The Weekly Pulse card in Lark</div><div class="sub">Layout illustration, no figures shown</div>
+        <div class="pulse">
+          <div class="top"><span>AP Weekly Pulse · W41</span><span style="color:var(--red-hot)">auto · Mon 09:00</span></div>
+          <div class="rows">
+            <div class="row"><b>Headline KPIs</b><div class="ph r"></div></div>
+            <div class="row"><b>Verdict</b><div class="ph" style="width:78%"></div></div>
+            <div class="row"><b>Sports vs casino</b><div class="ph r" style="width:90%"></div></div>
+            <div class="row"><b>Top movers</b><div class="ph" style="width:64%"></div></div>
+            <div class="row"><b>Marketing block</b><div class="ph" style="width:52%"></div></div>
+          </div>
+        </div></div>
+    </div>
+  </div>
+</article>
+
+<!-- 06 GGPOKER -->
+<article class="case" id="gg">
+  <div class="case-head"><span class="no">06</span><span>NSUSLAB · GGPoker</span><span>2023–2025</span><span class="tag">Poker CRM</span><span class="tag">Optimove · Snowflake · Tableau</span></div>
+  <div class="case-body">
+    <div class="text">
+      <h3>Personalized win-back for a global poker room</h3>
+      <div class="blk"><span class="lbl">The business problem</span>
+        <p>Campaigns used one reward and one template for everyone. Blanket offers paid players who were coming back anyway, and cherry pickers took the reward and left.</p></div>
+      <div class="blk"><span class="lbl">What I built</span>
+        <p>Segments by inactivity, lifetime value, preferred format (tournaments, cash games, Spin &amp; Gold) and region, launched and A/B tested in Optimove. A personalized win-back that reminds players of their own past big win. A daily cherry-picker screen on three rules: value-to-cost ratio below 0.1, weak post-campaign activity and accounts sharing an IP. Reporting moved to Optimove Datashare, Snowflake and Tableau.</p></div>
+      <div class="calls"><span class="lbl">What it changed</span>
+        <ol>
+          <li>Inactive players with a past big win came back at a higher rate. They became their own win-back segment, and the pilot returned 3.1× its cost.</li>
+          <li>Cherry pickers are removed from every target list. Campaign ROI on the GGE brand rose from 2.3 to 3.5.</li>
+          <li>GGR grew 25% year over year and CRM ROI more than doubled. Automated reporting removed four days of work per cycle.</li>
+        </ol></div>
+    </div>
+    <div class="figs">
+      <div class="fig"><div class="cap">How a target list was built</div>
+        <div class="flow"><span class="s">Weeks inactive</span><span class="a">→</span><span class="s">Lifetime value</span><span class="a">→</span><span class="s">Preferred format</span><span class="a">→</span><span class="s">Region</span></div>
+        <div class="flow"><span class="s">Eligible list</span><span class="a">→</span><span class="s dim">Remove cherry pickers</span><span class="a">→</span><span class="s hot">Personalized offer</span><span class="a">→</span><span class="s">A/B test</span></div></div>
+      <div class="fig"><div class="cap">Who counts as a cherry picker</div><div class="sub">A player flagged on any rule is removed from every target list, refreshed daily</div><div id="fig-cherry"></div></div>
+      <div class="fig"><div class="cap">GGE brand campaign ROI</div><div class="sub">Month over month, after the screen went in</div><div id="fig-roi"></div></div>
+      <div class="fig"><div class="cap">Results</div>
+        <div class="tiles">
+          <div class="tile"><span class="v">3.1×</span><span class="k">ROI, personalized win-back pilot</span></div>
+          <div class="tile"><span class="v">+25%</span><span class="k">GGR year over year</span></div>
+          <div class="tile"><span class="v">2.3 → 3.5</span><span class="k">GGE campaign ROI after the cherry-picker screen</span></div>
+          <div class="tile b"><span class="v">4 days</span><span class="k">of reporting work automated per cycle</span></div>
+        </div></div>
+    </div>
+  </div>
+</article>
+
+<!-- 07 KIDA -->
+<article class="case" id="kida">
+  <div class="case-head"><span class="no">07</span><span>Korea Institute for Defense Analyses</span><span>2020–2023</span><span class="tag">Text mining · RNN</span></div>
+  <div class="case-body">
+    <div class="text">
+      <h3>Does state media signal a provocation in advance?</h3>
+      <div class="blk"><span class="lbl">The question</span>
+        <p>Whether the language of North Korea's official newspaper changes in the week before a military provocation, early enough to serve as a warning.</p></div>
+      <div class="blk"><span class="lbl">What I built</span>
+        <p>A two-stage text-mining pipeline over the full text of Rodong Sinmun, focused on the seven days before events such as the sinking of the ROKS Cheonan and the shelling of Yeonpyeong Island. A provocation vocabulary checked with subject-matter experts, and an RNN that models word order as well as word frequency.</p></div>
+      <div class="calls"><span class="lbl">What came out</span>
+        <ol>
+          <li>80% accuracy on a held-out validation set.</li>
+          <li>Evidence that official language carries observable signals before military action, recognized within the institute.</li>
+        </ol></div>
+      <p class="note">Separately, I published an SSCI journal paper on Korea's Defense Innovation 4.0.</p>
+    </div>
+    <div class="figs">
+      <div class="fig"><div class="cap">Pipeline</div>
+        <div class="flow"><span class="s">Rodong Sinmun full text</span><span class="a">→</span><span class="s">7-day windows</span><span class="a">→</span><span class="s">Term frequency and tone</span><span class="a">→</span><span class="s dim">Expert-checked vocabulary</span><span class="a">→</span><span class="s hot">RNN</span><span class="a">→</span><span class="s hot">Early-warning score</span></div></div>
+      <div class="fig"><div class="cap">Example windows in 2010</div><div id="fig-kida"></div></div>
+    </div>
+  </div>
+</article>
+
+<div class="section-title"><h2>Earlier</h2></div>
+<div class="earlier">
+  <div class="mini">
+    <span class="case-meta">Echo Marketing · 2015 · Search ads</span>
+    <h3>Ranking keywords when the platform stopped showing rank</h3>
+    <p>Naver search ads stopped reporting position by bid. I clustered keywords by conversion and cost, fitted a stepwise regression for each cluster and set bids from it, refitting as new data came in. Cost per acquisition fell 8% in the trial and bid management needed fewer people.</p>
+  </div>
+  <div class="mini">
+    <span class="case-meta">TMAX BI · 2018–2020 · CRM product · KAIST thesis</span>
+    <h3>CRM platform and customer paths</h3>
+    <p>Planned and developed the company's CRM platform, from the Sales CRM product to HyperCRM. At KAIST my thesis mined customers' channel sequences on the way to purchase with sequential pattern mining (SPADE).</p>
+  </div>
+</div>
+
+<div class="section-title"><h2>Toolkit</h2><p>What I use day to day, grouped by the job it does.</p></div>
+<div class="kit">
+  <div class="kitcol"><b>Modeling</b><div class="chips"><span class="on">Gradient boosting</span><span>Logistic regression</span><span>Random forest</span><span class="on">Matrix factorization (ALS)</span><span>RNN</span><span>Text mining</span><span>Sequential pattern mining</span></div></div>
+  <div class="kitcol"><b>Measurement</b><div class="chips"><span class="on">Holdout design</span><span class="on">Difference-in-differences</span><span>A/B and multivariate tests</span><span>NDCG, MAP</span><span>Bootstrap intervals</span><span>Calibration</span></div></div>
+  <div class="kitcol"><b>Data and build</b><div class="chips"><span class="on">Python</span><span class="on">SQL</span><span>pandas · NumPy · scikit-learn</span><span>Alibaba Cloud MaxCompute</span><span>Snowflake</span><span>Streamlit</span><span>Dash</span><span>pytest</span><span>Git</span><span>Huawei Cloud</span></div></div>
+  <div class="kitcol"><b>Platforms and workflow</b><div class="chips"><span>iCore</span><span>Altenar</span><span>SABA</span><span>Optimove</span><span>Tableau</span><span>Quick BI</span><span>Lark</span><span class="on">AI coding agents, planning to review</span></div></div>
+</div>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Donghwan (Kyle) Yun</b>
+    <span><a href="mailto:yun090914@gmail.com">yun090914@gmail.com</a> · +63 968 124 9771 · Manila, Philippines</span>
+  </div>
+</footer>
+
+<div id="tip" role="tooltip"></div>
+
+<script>
+const D = {
+  season: {"months": ["2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"], "series": {"NBA": [0, 0, 0, 49, 63, 54, 52, 46, 53, 71, 100, 32, 0, 0, 0, 22], "PBA": [100, 0, 0, 39, 32, 37, 40, 13, 34, 47, 56, 59, 43, 37, 1, 13], "WNBA": [96, 89, 52, 13, 0, 0, 0, 0, 0, 2, 64, 100, 73, 81, 44, 38], "KBL": [0, 0, 0, 100, 93, 93, 92, 85, 97, 90, 46, 0, 0, 0, 0, 45]}},
+  oct: [["NBA", 50804], ["WNBA", 33916], ["PBA", 26640], ["NBL Australia", 20404], ["KBL (Korea)", 18038], ["B.League (Japan)", 6758], ["IPBL Prime", 4722]],
+  target: [["Past bettors of the league", 0.738, 1], ["Recent bettors of the sport", 0.564, 0], ["ALS model", 0.366, 0], ["Random", 0.278, 0]],
+  imp: [["Days since last bet", 0.09], ["Active days, last 7", 0.0072], ["Active days, last 30", 0.0071], ["Days since last deposit", 0.0043], ["Active days, last 90", 0.003], ["Tenure", 0.0027], ["Activity trend", 0.0009]],
+  churn: {"model": [[0.0, 0.0], [0.05, 0.354], [0.1, 0.576], [0.15, 0.723], [0.2, 0.813], [0.25, 0.873], [0.3, 0.908], [0.35, 0.932], [0.4, 0.95], [0.45, 0.967], [0.5, 0.976], [0.55, 0.984], [0.6, 0.987], [0.65, 0.99], [0.7, 0.995], [0.75, 0.996], [0.8, 0.996], [0.85, 0.998], [0.9, 0.999], [0.95, 0.999], [1.0, 1.0]], "rule": [[0.0, 0.0], [0.05, 0.341], [0.1, 0.558], [0.15, 0.697], [0.2, 0.772], [0.25, 0.824], [0.3, 0.858], [0.35, 0.888], [0.4, 0.914], [0.45, 0.936], [0.5, 0.956], [0.55, 0.961], [0.6, 0.967], [0.65, 0.973], [0.7, 0.974], [0.75, 0.979], [0.8, 0.984], [0.85, 0.988], [0.9, 0.993], [0.95, 0.997], [1.0, 1.0]]},
+  causal: [["1–3 days", 25.0], ["4–9 days", 9.4], ["10–19 days", 2.7], ["20+ days", -0.2]]
+};
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const svg = (w, h, inner, label) => `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}">${inner}</svg>`;
+
+// Horizontal bars, 4px rounded data end, direct value labels, hover tips
+function bars(rows, opt) {
+  const W = 520, row = 32, left = opt.left || 170, right = 70, H = rows.length * row + (opt.axis ? 24 : 6);
+  const vals = rows.map((r) => r[1]), lo = Math.min(0, ...vals), hi = Math.max(...vals) * 1.04;
+  const x = (v) => left + ((v - lo) / (hi - lo)) * (W - left - right);
+  let g = "";
+  if (lo < 0) g += `<line x1="${x(0)}" x2="${x(0)}" y1="2" y2="${rows.length * row + 2}" stroke="var(--muted)"/>`;
+  rows.forEach((r, i) => {
+    const y = i * row + 4, v = r[1], hl = r[2] ?? (i === 0 ? 1 : 0);
+    const x0 = Math.min(x(0), x(v)), w = Math.max(Math.abs(x(v) - x(0)), 2);
+    const fill = hl ? "var(--red)" : "var(--slate)";
+    g += `<text class="lbl" x="${left - 10}" y="${y + 16}" text-anchor="end">${esc(r[0])}</text>`;
+    g += `<path data-tip="${esc(r[0] + ": " + opt.fmt(v))}" d="${v >= 0 ? `M${x0},${y + 3}h${w - 4}a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h${-(w - 4)}z` : `M${x0 + w},${y + 3}h${-(w - 4)}a4,4 0 0 0 -4,4v10a4,4 0 0 0 4,4h${w - 4}z`}" fill="${fill}"/>`;
+    g += `<text class="val" x="${Math.max(x(v), x(0)) + 7}" y="${y + 16}">${opt.fmt(v)}</text>`;
+  });
+  if (opt.axis) g += `<text x="${left}" y="${H - 4}">${esc(opt.axis)}</text>`;
+  return svg(W, H, g, opt.label);
+}
+
+function churnCurve(c) {
+  const W = 520, H = 250, l = 46, r = 16, t = 12, b = 34;
+  const x = (v) => l + v * (W - l - r), y = (v) => H - b - v * (H - t - b);
+  let g = "";
+  [0, .25, .5, .75, 1].forEach((v) => { g += `<line x1="${l}" x2="${W - r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${l - 8}" y="${y(v) + 4}" text-anchor="end">${v * 100}%</text>`; });
+  [0, .2, .4, .6, .8, 1].forEach((v) => { g += `<text x="${x(v)}" y="${H - 12}" text-anchor="middle">${v * 100}%</text>`; });
+  g += `<line x1="${x(0)}" y1="${y(0)}" x2="${x(1)}" y2="${y(1)}" stroke="var(--slate)" stroke-dasharray="4 4"/>`;
+  const path = (pts) => pts.map((p, i) => `${i ? "L" : "M"}${x(p[0]).toFixed(1)},${y(p[1]).toFixed(1)}`).join("");
+  g += `<path d="${path(c.rule)}" fill="none" stroke="var(--blue)" stroke-width="2"/>`;
+  g += `<path d="${path(c.model)}" fill="none" stroke="var(--red)" stroke-width="2.5"/>`;
+  c.model.forEach((p, i) => { if (i % 2 === 0) g += `<circle data-tip="Top ${Math.round(p[0] * 100)}%: model ${Math.round(p[1] * 100)}%, rule ${Math.round(c.rule[i][1] * 100)}%" cx="${x(p[0])}" cy="${y(p[1])}" r="9" fill="transparent"/>`; });
+  const p10 = c.model[2];
+  g += `<circle cx="${x(p10[0])}" cy="${y(p10[1])}" r="5" fill="var(--red)" stroke="var(--bg)" stroke-width="2"/><text class="val" x="${x(p10[0]) + 12}" y="${y(p10[1]) + 16}">top 10% catches ${Math.round(p10[1] * 100)}%</text>`;
+  g += `<text x="${W - r}" y="${H - b - 8}" text-anchor="end">share of players, riskiest first</text>`;
+  return svg(W, H, g, "Cumulative share of churners captured by risk rank, model vs rule");
+}
+
+function seasonChart(S) {
+  const W = 520, H = 230, l = 34, r = 60, t = 12, b = 30, n = S.months.length;
+  const x = (i) => l + (i / (n - 1)) * (W - l - r), y = (v) => t + (1 - v / 100) * (H - t - b);
+  const cols = {NBA: "var(--red)", PBA: "var(--blue)", WNBA: "var(--amber)", KBL: "var(--green)"};
+  const i0 = S.months.indexOf("2026-08"), i1 = S.months.indexOf("2026-10");
+  let g = `<rect x="${x(i0)}" y="${t}" width="${x(i1) - x(i0)}" height="${H - t - b}" fill="rgba(232,50,63,.10)"/>`;
+  [0, 50, 100].forEach((v) => { g += `<line x1="${l}" x2="${W - r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${l - 6}" y="${y(v) + 4}" text-anchor="end">${v}</text>`; });
+  S.months.forEach((m, i) => { if (i % 3 === 0 || i === n - 1) g += `<text x="${x(i)}" y="${H - 10}" text-anchor="middle">${m.slice(2).replace("-", "/")}</text>`; });
+  const order = Object.entries(S.series).sort((a, b) => b[1][n - 1] - a[1][n - 1]);
+  let lastY = -99;
+  order.forEach(([k, vals]) => {
+    g += `<path d="${vals.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("")}" fill="none" stroke="${cols[k]}" stroke-width="2"/>`;
+    vals.forEach((v, i) => { g += `<circle data-tip="${k} ${S.months[i]}: ${v}" cx="${x(i)}" cy="${y(v)}" r="6" fill="transparent"/>`; });
+    const ly = Math.max(y(vals[n - 1]) + 4, lastY + 14); lastY = ly;
+    g += `<rect x="${x(n - 1) + 6}" y="${ly - 9}" width="9" height="9" rx="2" fill="${cols[k]}"/><text class="val" x="${x(n - 1) + 19}" y="${ly}">${k}</text>`;
+  });
+  return svg(W, H, g, "Basketball league popularity by month, indexed to each league's peak");
+}
+
+function vipChart() {
+  const W = 520, H = 200, l = 40, r = 96, t = 14, b = 26;
+  const tov = [20, 25, 22, 100, 30, 18, 15, 12, 10, 12, 9, 8];
+  const n = tov.length, bw = (W - l - r) / n;
+  const y = (v) => t + (1 - v / 110) * (H - t - b);
+  let g = "";
+  let mx = 0;
+  const maxLine = [], avgLine = [];
+  tov.forEach((v, i) => { mx = Math.max(mx, v); maxLine.push(mx); const s = tov.slice(Math.max(0, i - 2), i + 1); avgLine.push(s.reduce((a, c) => a + c, 0) / s.length); });
+  tov.forEach((v, i) => {
+    const xx = l + i * bw + 3, w = bw - 6;
+    g += `<path data-tip="Month ${i + 1}: turnover index ${v}" d="M${xx},${y(0)}V${y(v) + 4}a4,4 0 0 1 4,-4h${w - 8}a4,4 0 0 1 4,4V${y(0)}z" fill="var(--slate)"/>`;
+    g += `<text x="${xx + w / 2}" y="${H - 8}" text-anchor="middle">${i + 1}</text>`;
+  });
+  const cx = (i) => l + i * bw + bw / 2;
+  g += `<path d="${maxLine.map((v, i) => `${i ? "L" : "M"}${cx(i)},${y(v)}`).join("")}" fill="none" stroke="var(--blue)" stroke-width="2"/>`;
+  g += `<path d="${avgLine.map((v, i) => `${i ? "L" : "M"}${cx(i)},${y(v)}`).join("")}" fill="none" stroke="var(--red)" stroke-width="2.5"/>`;
+  g += `<text class="val" x="${cx(n - 1) + 10}" y="${y(maxLine[n - 1]) + 4}">Still top tier</text>`;
+  g += `<text class="val" x="${cx(n - 1) + 10}" y="${y(avgLine[n - 1]) + 4}">Tier drops</text>`;
+  g += `<line x1="${l}" x2="${W - r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line2)"/><text x="${l}" y="${t - 2}">turnover index</text>`;
+  return svg(W, H, g, "Illustration: historic maximum keeps a slowed player in a high tier while the average lets the tier fall");
+}
+
+function kidaChart() {
+  const W = 520, H = 110, l = 20, r = 20, mid = 56;
+  const x = (d) => l + (d / 365) * (W - l - r);
+  const ev = [["ROKS Cheonan", 84], ["Yeonpyeong shelling", 326]];
+  let g = `<line x1="${l}" x2="${W - r}" y1="${mid}" y2="${mid}" stroke="var(--line2)" stroke-width="2"/>`;
+  ["Jan", "Apr", "Jul", "Oct"].forEach((m, i) => { g += `<text x="${x(i * 91)}" y="${mid + 30}">${m} 2010</text>`; });
+  ev.forEach(([nm, d]) => {
+    g += `<rect data-tip="${nm}: articles from the 7 days before" x="${x(d - 7)}" y="${mid - 12}" width="${x(d) - x(d - 7)}" height="24" rx="3" fill="rgba(232,50,63,.35)"/>`;
+    g += `<line x1="${x(d)}" x2="${x(d)}" y1="${mid - 18}" y2="${mid + 18}" stroke="var(--red)" stroke-width="3"/>`;
+    g += `<text class="lbl" x="${Math.min(x(d), W - r - 70)}" y="${mid - 24}" text-anchor="middle">${nm}</text>`;
+  });
+  g += `<text x="${l}" y="${H - 2}">shaded: the seven days of articles each window reads</text>`;
+  return svg(W, H, g, "2010 incidents with seven-day article windows");
+}
+
+const put = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+put("fig-churn", churnCurve(D.churn));
+put("fig-imp", bars(D.imp, {left: 190, fmt: (v) => v.toFixed(3), label: "Permutation importance", axis: "AUC drop when shuffled"}));
+put("fig-naive", bars([["Redeemers vs non-redeemers", 2.98, 0], ["Holdout-based read", 1.34, 1]], {left: 190, fmt: (v) => v.toFixed(2) + "×", label: "Campaign return, old comparison vs holdout", axis: "return per peso of bonus"}));
+put("fig-causal", bars(D.causal, {left: 100, fmt: (v) => (v > 0 ? "+" : "") + v.toFixed(1) + "pp", label: "Churn prevention lift by prior activity days"}));
+put("fig-oct", bars(D.oct, {left: 130, fmt: (v) => (v / 1000).toFixed(1) + "K", label: "October bettors by league"}));
+put("fig-season", seasonChart(D.season));
+put("fig-target", bars(D.target, {left: 190, fmt: (v) => Math.round(v * 100) + "%", label: "Promotion targeting hit rate by method"}));
+put("fig-vip", vipChart());
+put("fig-kida", kidaChart());
+
+function careerChart() {
+  const W = 1040, H = 150, l = 16, r = 16, y0 = 2014, y1 = 2026.85;
+  const x = (y) => l + ((y - y0) / (y1 - y0)) * (W - l - r);
+  const lanes = [
+    ["Education", 30, [["KAIST B.S.", 2014, 2016.1, "var(--slate)"], ["KAIST M.S.", 2016.2, 2018.1, "var(--slate)"]]],
+    ["Work", 86, [["Echo", 2015, 2015.7, "var(--amber)"], ["TMAX BI", 2018.1, 2020.7, "var(--amber)"], ["KIDA", 2020.7, 2023.6, "var(--blue)"], ["GGPoker", 2023.85, 2025.6, "var(--red)"], ["ArenaPlus", 2025.6, 2026.8, "var(--red)"]]]
+  ];
+  let g = "";
+  for (let y = 2014; y <= 2026; y++) g += `<line x1="${x(y)}" x2="${x(y)}" y1="16" y2="${H - 22}" stroke="var(--line)"/><text x="${x(y)}" y="${H - 6}" text-anchor="middle">${y}</text>`;
+  lanes.forEach(([nm, yy, spans]) => {
+    spans.forEach(([s, a, b, c]) => {
+      const w = x(b) - x(a);
+      g += `<rect data-tip="${s}: ${Math.floor(a)}–${b > 2026.7 ? "now" : Math.floor(b)}" x="${x(a) + 1}" y="${yy}" width="${w - 2}" height="30" rx="4" fill="${c}"/>`;
+      if (w > 52) g += `<text x="${x(a) + 8}" y="${yy + 20}" style="fill:#fff;font:600 13px var(--body)">${s}</text>`;
+      else g += `<text x="${x(a) + w / 2}" y="${yy - 6}" text-anchor="middle" style="fill:var(--ink2);font:600 12px var(--body)">${s}</text>`;
+    });
+  });
+  g += `<text x="${x(2023.85)}" y="${78}" style="fill:var(--red-hot);font:700 11px var(--mono)">iGAMING →</text>`;
+  return svg(W, H, g, "Career timeline from 2014 to now");
+}
+
+function calibChart(c) {
+  const W = 520, H = 220, l = 46, r = 16, t = 12, b = 34, mx = 0.6;
+  const x = (v) => l + (v / mx) * (W - l - r), y = (v) => H - b - (v / mx) * (H - t - b);
+  let g = `<line x1="${x(0)}" y1="${y(0)}" x2="${x(mx)}" y2="${y(mx)}" stroke="var(--slate)" stroke-dasharray="4 4"/>`;
+  [0, .2, .4, .6].forEach((v) => { g += `<line x1="${l}" x2="${W - r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${l - 8}" y="${y(v) + 4}" text-anchor="end">${Math.round(v * 100)}%</text><text x="${x(v)}" y="${H - 12}" text-anchor="middle">${Math.round(v * 100)}%</text>`; });
+  g += `<path d="${c.map((p, i) => `${i ? "L" : "M"}${x(p[0]).toFixed(1)},${y(p[1]).toFixed(1)}`).join("")}" fill="none" stroke="var(--red)" stroke-width="2"/>`;
+  c.forEach((p, i) => { g += `<circle data-tip="Decile ${i + 1}: predicted ${(p[0] * 100).toFixed(1)}%, observed ${(p[1] * 100).toFixed(1)}%" cx="${x(p[0])}" cy="${y(p[1])}" r="5" fill="var(--red)" stroke="var(--bg)" stroke-width="2"/>`; });
+  g += `<text x="${W - r}" y="${H - b - 8}" text-anchor="end">predicted · dashed = perfect</text><text x="${l + 6}" y="${t + 10}">observed</text>`;
+  return svg(W, H, g, "Calibration curve");
+}
+
+function waffle() {
+  let g = "";
+  const s = 20, gap = 2;
+  for (let i = 0; i < 100; i++) {
+    const col = i % 10, row = Math.floor(i / 10), hold = row === 9;
+    g += `<rect x="${col * (s + gap)}" y="${row * (s + gap)}" width="${s}" height="${s}" rx="3" fill="${hold ? "var(--slate)" : "var(--red)"}"/>`;
+  }
+  return svg(218, 218, g, "90 percent get the offer, 10 percent holdout");
+}
+
+function ladder() {
+  const W = 520, H = 230, mid = 260, t = 22, row = 22;
+  let g = `<text x="${mid - 20}" y="14" text-anchor="end" style="fill:var(--ink);font:700 13px var(--mono)">SPORTS</text><text x="${mid + 20}" y="14" style="fill:var(--ink);font:700 13px var(--mono)">NON-SPORTS</text>`;
+  for (let i = 0; i < 9; i++) {
+    const tier = 8 - i, y = t + i * row, w = 30 + i * 22;
+    const hl = tier >= 6;
+    g += `<rect data-tip="Sports V${tier}" x="${mid - 22 - w}" y="${y}" width="${w}" height="${row - 4}" rx="3" fill="${hl ? "var(--red)" : "var(--slate)"}"/>`;
+    g += `<rect data-tip="Non-sports V${tier}" x="${mid + 22}" y="${y}" width="${w}" height="${row - 4}" rx="3" fill="${hl ? "var(--blue)" : "var(--slate)"}"/>`;
+    g += `<text x="${mid}" y="${y + 13}" text-anchor="middle" style="fill:var(--ink2);font:700 11px var(--mono)">V${tier}</text>`;
+  }
+  return svg(W, H, g, "Two VIP ladders, sports and non-sports, V0 to V8") + `<div class="legend"><span><i style="background:var(--red)"></i>Sports top tiers</span><span><i style="background:var(--blue)"></i>Non-sports top tiers</span><span><i style="background:var(--slate)"></i>Other tiers</span></div>`;
+}
+
+function hours() {
+  const W = 520, H = 92, s = 7.4, gap = 2.3;
+  let g = "";
+  for (let i = 0; i < 52; i++) g += `<rect data-tip="Week ${i + 1}: ~10 hours back" x="${i * (s + gap)}" y="10" width="${s}" height="34" rx="2" fill="var(--red)"/>`;
+  g += `<text x="0" y="66" style="fill:var(--ink);font:600 13px var(--body)">52 weeks × ~10 hours = about 520 hours a year back to analysis</text>`;
+  g += `<text x="0" y="86">each bar = one week of manual pulls that no longer happen</text>`;
+  return svg(W, H, g, "About 520 hours a year saved");
+}
+
+function cherry() {
+  const W = 520, H = 250;
+  const c = [[200, 105, "var(--red)", "Value-to-cost", "below 0.1"], [320, 105, "var(--blue)", "Weak activity", "after campaign"], [260, 175, "var(--amber)", "Shared IP", "multi-account"]];
+  let g = "";
+  c.forEach(([cx, cy, col]) => { g += `<circle cx="${cx}" cy="${cy}" r="78" fill="${col}" fill-opacity=".22" stroke="${col}" stroke-width="2"/>`; });
+  g += `<text x="140" y="92" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--body)">${c[0][3]}</text><text x="140" y="110" text-anchor="middle">${c[0][4]}</text>`;
+  g += `<text x="380" y="92" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--body)">${c[1][3]}</text><text x="380" y="110" text-anchor="middle">${c[1][4]}</text>`;
+  g += `<text x="260" y="222" text-anchor="middle" style="fill:var(--ink);font:600 13px var(--body)">${c[2][3]}</text><text x="260" y="238" text-anchor="middle">${c[2][4]}</text>`;
+  g += `<rect x="222" y="118" width="76" height="24" rx="12" fill="#fff"/><text x="260" y="134" text-anchor="middle" style="fill:#0A0E13;font:700 12px var(--mono)">EXCLUDE</text>`;
+  return svg(W, H, g, "Three cherry-picker rules");
+}
+
+put("fig-career", careerChart());
+put("fig-calib", calibChart([[0.002, 0.001], [0.002, 0.002], [0.003, 0.001], [0.005, 0.007], [0.011, 0.009], [0.022, 0.021], [0.044, 0.034], [0.088, 0.077], [0.213, 0.192], [0.523, 0.469]]));
+put("fig-waffle", waffle());
+put("fig-ndcg", bars([["Popular, 12 months", 0.618, 1], ["Same season last year", 0.593, 0], ["Own history", 0.535, 0], ["History + ALS", 0.507, 0], ["ALS", 0.402, 0], ["Popular, last 30 days", 0.305, 0]], {left: 170, fmt: (v) => v.toFixed(3), label: "NDCG@10 by method", axis: "higher is better"}));
+put("fig-ladder", ladder());
+put("fig-hours", hours());
+put("fig-cherry", cherry());
+put("fig-roi", bars([["Dec 2024", 2.3, 0], ["Jan 2025", 3.5, 1]], {left: 90, fmt: (v) => v.toFixed(1) + "× ROI", label: "GGE campaign ROI before and after the screen"}));
+
+// One shared tooltip for every mark with data-tip
+const tip = document.getElementById("tip");
+document.addEventListener("pointermove", (e) => {
+  const t = e.target.closest && e.target.closest("[data-tip]");
+  if (!t) { tip.style.opacity = 0; return; }
+  tip.textContent = t.getAttribute("data-tip");
+  const x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+  tip.style.left = x + "px"; tip.style.top = (e.clientY + 14) + "px"; tip.style.opacity = 1;
+});
+</script>
+</body>
+</html>
