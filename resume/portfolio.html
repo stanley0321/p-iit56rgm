@@ -1,0 +1,1184 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow, noarchive"><style>body{margin:0}[hidden]{display:none!important}</style></head><body><title>Kyle Yun Case Files</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Fira+Code:wght@400;500;600&family=Fira+Sans:wght@400;500;600&display=swap">
+<style id="kstyle">
+/* Layout: one landscape case sheet per decision. Story on the left with a process strip, evidence on the right (headline number + two charts). Swiss grid, one accent. */
+:root {
+  --paper: #FFFFFF; --ground: #F2F4F8; --ink: #0B1220; --ink2: #3B4658; --mute: #697486;
+  --line: #DCE1E9; --tint: #ECF1FD; --accent: #1F4FD8; --accent-ink: #FFFFFF; --bar: #B9C3D3; --warn: #B45F06;
+  --display: "Archivo", "Segoe UI", Arial, sans-serif;
+  --body: "Fira Sans", "Segoe UI", Arial, sans-serif;
+  --data: "Fira Code", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #121926; --ground: #0B111C; --ink: #E8EDF5; --ink2: #B6C0CF; --mute: #8C97A8;
+  --line: #263044; --tint: #18233D; --accent: #7EA2FF; --accent-ink: #0B1220; --bar: #3A465C; --warn: #F0A050; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #121926; --ground: #0B111C; --ink: #E8EDF5; --ink2: #B6C0CF; --mute: #8C97A8;
+  --line: #263044; --tint: #18233D; --accent: #7EA2FF; --accent-ink: #0B1220; --bar: #3A465C; --warn: #F0A050; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--ground); color: var(--ink); font: 16px/1.5 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 56px }
+p, h1, h2, h3, ul, ol { margin: 0 }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; letter-spacing: -.01em }
+.deck { max-width: 1200px; margin: 0 auto; display: grid; gap: 22px }
+.sheet { background: var(--paper); border: 1px solid var(--line); padding: clamp(20px, 3vw, 36px); display: grid; gap: 20px; min-width: 0 }
+.eyebrow { font: 600 12px var(--data); letter-spacing: .12em; text-transform: uppercase; color: var(--accent) }
+.lbl { font: 600 11.5px var(--data); letter-spacing: .1em; text-transform: uppercase; color: var(--mute) }
+
+/* Cover */
+.cover { grid-template-columns: 1.3fr 1fr; gap: 26px 44px; align-items: start }
+.cover h1 { font-size: clamp(40px, 6vw, 70px); font-weight: 800; line-height: .98 }
+.cover .role { font: 600 clamp(17px, 2vw, 20px) var(--display); color: var(--ink2); margin-top: 10px }
+.cover .lede { font-size: clamp(17px, 1.8vw, 19px); color: var(--ink2); max-width: 52ch }
+.contact { font: 500 14px var(--data); color: var(--mute); display: flex; flex-wrap: wrap; gap: 4px 18px }
+.steps { display: grid; gap: 12px; align-content: start }
+.step { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start }
+.step i { font: 600 13px var(--data); font-style: normal; width: 34px; height: 34px; border: 1.5px solid var(--accent); color: var(--accent); display: grid; place-items: center }
+.step b { font: 600 15px var(--display); display: block } .step span { font-size: 14px; color: var(--ink2) }
+.stats { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1.5px solid var(--ink) }
+.stat { padding: 14px 14px 0 0; display: grid; gap: 4px; min-width: 0 }
+.stat + .stat { padding-left: 14px; border-left: 1px solid var(--line) }
+.stat .v { font: 600 clamp(24px, 3vw, 32px)/1 var(--data); font-variant-numeric: tabular-nums }
+.stat .k { font-size: 13px; color: var(--mute); line-height: 1.35 }
+.map { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px }
+.map div { background: var(--ground); padding: 10px 12px; display: grid; gap: 2px; min-width: 0 }
+.map b { font: 600 14px var(--display) } .map span { font-size: 12.5px; color: var(--mute) }
+
+/* Case sheet */
+.case { grid-template-columns: minmax(0, .95fr) minmax(0, 1.25fr); gap: 20px 40px; align-items: start }
+.case .head { grid-column: 1 / -1; display: grid; gap: 6px; border-bottom: 1px solid var(--line); padding-bottom: 14px }
+.case h2 { font-size: clamp(25px, 3.2vw, 36px); font-weight: 700; line-height: 1.1 }
+.story { display: grid; gap: 16px; min-width: 0 }
+.blk { display: grid; gap: 5px }
+.blk p, .blk li { color: var(--ink2); font-size: 15px }
+.blk ul { padding-left: 18px; display: grid; gap: 4px }
+.decision { background: var(--tint); padding: 12px 14px; display: grid; gap: 3px }
+.decision .lbl { color: var(--accent) } .decision p { color: var(--ink); font-size: 15px }
+.flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px }
+.flow .n { min-width: 0; border-top: 2px solid var(--accent); padding: 6px 2px 0 0; display: grid; gap: 1px; align-content: start }
+.flow .n b { font: 600 13px var(--display) } .flow .n span { font-size: 12px; color: var(--mute); line-height: 1.3 }
+.flow .ar { display: none }
+.evidence { display: grid; gap: 16px; min-width: 0 }
+.hero { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; align-items: end }
+.hero .v { font: 600 clamp(42px, 5.4vw, 66px)/.95 var(--data); color: var(--accent); letter-spacing: -.02em }
+.hero .k { font-size: 15px; color: var(--ink2); max-width: 36ch; padding-bottom: 4px }
+.charts { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px }
+.charts .wide { grid-column: 1 / -1 }
+.chart { display: grid; gap: 8px; align-content: start; min-width: 0 }
+.chart .cap { font: 600 14.5px var(--display) }
+.chart .sub { font-size: 12.5px; color: var(--mute); margin-top: -5px }
+.note { font-size: 13px; color: var(--mute) }
+.bars { display: grid; gap: 6px }
+.bar { display: grid; grid-template-columns: minmax(84px, 40%) minmax(0, 1fr) 54px; gap: 8px; align-items: center; font-size: 13px; color: var(--ink2) }
+.track { height: 13px; background: var(--ground); position: relative }
+.fill { height: 100%; background: var(--bar) } .fill.hi { background: var(--accent) } .fill.w { background: var(--warn) }
+.mark { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink) }
+.bar .v { font: 500 12.5px var(--data); text-align: right; color: var(--ink) }
+.div { display: grid; gap: 6px }
+.drow { display: grid; grid-template-columns: minmax(70px, 30%) minmax(0, 1fr) 50px; gap: 8px; align-items: center; font-size: 13px; color: var(--ink2) }
+.dtrack { height: 13px; position: relative; background: var(--ground) }
+.dtrack::after { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--ink) }
+.dfill { position: absolute; top: 0; bottom: 0 }
+table.t { width: 100%; border-collapse: collapse; font-size: 13px }
+table.t th { text-align: left; font: 600 11px var(--data); letter-spacing: .06em; text-transform: uppercase; color: var(--mute); padding: 0 6px 5px 0; border-bottom: 1px solid var(--ink) }
+table.t td { padding: 6px 6px 6px 0; border-bottom: 1px solid var(--line); color: var(--ink2); vertical-align: top }
+table.t .n { text-align: right; font-family: var(--data); color: var(--ink) }
+table.t tr.hi td { color: var(--ink); font-weight: 600 }
+.waffle { display: grid; grid-template-columns: repeat(20, 1fr); gap: 2px; max-width: 280px }
+.waffle i { aspect-ratio: 1; background: var(--ground); outline: 1px solid var(--line); outline-offset: -1px }
+.waffle i.on { background: var(--warn); outline: 0 }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--ink2) }
+.legend s { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; text-decoration: none }
+.overflow { overflow-x: auto }
+svg { width: 100%; height: auto; display: block; overflow: visible }
+svg text { font: 11.5px var(--data); fill: var(--mute) }
+svg .lab { fill: var(--ink); font-weight: 600 }
+
+.tl { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; counter-reset: s }
+.tl li { position: relative; padding-top: 18px; display: grid; gap: 2px; min-width: 0 }
+.tl li::before { content: ""; position: absolute; top: 5px; left: 0; right: -10px; height: 2px; background: var(--line) }
+.tl li::after { content: ""; position: absolute; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--accent) }
+.tl li:last-child::before { right: 0 }
+.tl li:last-child::after { background: var(--warn) }
+.tl-k { font: 600 12px var(--data); color: var(--accent) }
+.tl-v { font-size: 13px; color: var(--ink2); line-height: 1.35 }
+@media screen and (max-width: 900px) { .tl { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
+
+/* Earlier */
+.pair { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 30px }
+.pair .head { grid-column: 1 / -1; display: grid; gap: 6px }
+.mini { display: grid; gap: 8px; align-content: start; border-top: 1.5px solid var(--ink); padding-top: 12px; min-width: 0 }
+.mini .m { font: 500 12.5px var(--data); color: var(--mute) }
+.mini h3 { font-size: 18px; font-weight: 700 }
+.mini p { color: var(--ink2); font-size: 14.5px }
+.tools { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 22px; border-top: 1px solid var(--line); padding-top: 14px }
+.tools div { display: grid; gap: 3px; min-width: 0 } .tools p { font-size: 14px; color: var(--ink2) }
+
+/* Editing */
+.editbar { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); display: flex; gap: 8px; z-index: 5 }
+.editbar button { font: 600 14px var(--body); padding: 9px 16px; min-height: 40px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); cursor: pointer }
+.editbar button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
+.editbar button:focus-visible, [contenteditable]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.editing [data-p] { outline: 1px dashed var(--bar); outline-offset: 2px; cursor: text }
+.toast { position: fixed; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 9px 14px; font-size: 14px; z-index: 6 }
+
+@media screen and (max-width: 900px) {
+  .cover, .case, .pair, .charts { grid-template-columns: 1fr }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .stat, .stat + .stat { padding: 12px 12px 12px 0; border-left: 0; border-bottom: 1px solid var(--line) }
+  .map { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .tools { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .hero { grid-template-columns: 1fr }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important } }
+@media print {
+  @page { size: A4 landscape; margin: 10mm 12mm }
+  html { zoom: .96 }
+  body { background: #fff; padding: 0 } .deck { gap: 0; max-width: none }
+  .sheet { break-after: page; break-inside: avoid; border: 0; padding: 0 }
+  .editbar, .toast { display: none }
+}
+</style>
+
+<div id="app"></div>
+
+<script type="application/json" id="kdata">
+{
+  "cover": {
+    "eyebrow": "Marketing analytics portfolio · 2026",
+    "name": "Donghwan (Kyle) Yun",
+    "role": "Data Scientist (Senior Specialist) · Marketing analytics",
+    "lede": "I figure out where marketing money actually pays off, and move it there.",
+    "contact": [
+      "yun090914@gmail.com",
+      "Manila, Philippines · remote"
+    ],
+    "steps": [
+      {
+        "b": "Check the number first",
+        "s": "Rebuild it customer by customer."
+      },
+      {
+        "b": "Compare fairly",
+        "s": "Cost and revenue on the same customers."
+      },
+      {
+        "b": "Test before trusting",
+        "s": "A control group wherever the numbers allow."
+      },
+      {
+        "b": "Prove it beats the old way",
+        "s": "Or it doesn't go live."
+      }
+    ],
+    "stats": [
+      {
+        "v": "PHP 10M",
+        "k": "saved on promotions in one month"
+      },
+      {
+        "v": "28x",
+        "k": "an agency's cost per new customer vs ad networks"
+      },
+      {
+        "v": "83%",
+        "k": "of revenue from the top 10% my model picks"
+      },
+      {
+        "v": "+8pp",
+        "k": "casino VIP retention after targeted calls"
+      },
+      {
+        "v": "137x",
+        "k": "partner overpayment, fixed"
+      }
+    ],
+    "map": [
+      {
+        "b": "CRM A/B testing",
+        "s": "Designed and built the test"
+      },
+      {
+        "b": "Marketing channels",
+        "s": "Which are worth the money"
+      },
+      {
+        "b": "Customer value",
+        "s": "Who will be worth the most"
+      },
+      {
+        "b": "Budget planning",
+        "s": "Catching overspend early"
+      },
+      {
+        "b": "Partner payments",
+        "s": "Paying only for real referrals"
+      },
+      {
+        "b": "VIP retention",
+        "s": "Who to call this week"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "area": "CRM A/B testing · DigiPlus (ArenaPlus) · 2026",
+      "title": "I designed and built the A/B test every CRM campaign runs on",
+      "question": "Reports compared promo users with non-users, so every campaign looked like a win.",
+      "did": [
+        "Designed a 10% control group, stratified so both groups start alike, and built it into every campaign send. Lift is measured at day 7 and day 30."
+      ],
+      "decision": "Every campaign is now judged on its real lift. Within one month, from late 2025 into January 2026, promo spend fell from over 10% to about 5% of revenue, saving about PHP 10M.",
+      "flow": [
+        [
+          "Customers",
+          "eligible"
+        ],
+        [
+          "Random split",
+          "90 / 10"
+        ],
+        [
+          "Send",
+          "promotion"
+        ],
+        [
+          "Compare",
+          "day 7 and 30"
+        ],
+        [
+          "Move budget",
+          "to what works"
+        ]
+      ],
+      "value": "PHP 10M",
+      "valueLabel": "saved on promotions in one month.",
+      "charts": [
+        {
+          "type": "timeline",
+          "wide": true,
+          "cap": "How the test works",
+          "steps": [
+            [
+              "Stratify",
+              "Group players by value and activity"
+            ],
+            [
+              "Split",
+              "Random 10% control in each group"
+            ],
+            [
+              "Send",
+              "Only the other 90% get the campaign"
+            ],
+            [
+              "Measure",
+              "Lift = campaign group minus control, day 7 and 30"
+            ]
+          ]
+        },
+        {
+          "type": "waffle",
+          "cap": "Every send keeps 10 in 100 players as a control",
+          "sub": "Stratified, so both groups start alike",
+          "on": 10,
+          "legend": [
+            [
+              "warn",
+              "Control (no campaign)"
+            ],
+            [
+              "ground",
+              "Gets the campaign"
+            ]
+          ]
+        },
+        {
+          "type": "diverge",
+          "cap": "My first method made a working promotion look like a loss",
+          "sub": "Extra customers back within 7 days (percentage points)",
+          "max": 16,
+          "rows": [
+            [
+              "Wrong method",
+              -15.6,
+              "-15.6",
+              "w"
+            ],
+            [
+              "Right method",
+              3.6,
+              "+3.6",
+              "hi"
+            ]
+          ]
+        },
+        {
+          "type": "bars",
+          "cap": "A simple comparison made one bonus look twice as good as it was",
+          "sub": "Return per peso spent on a slot bonus",
+          "max": 3,
+          "rows": [
+            [
+              "Simple comparison",
+              2.98,
+              "2.98x",
+              "w"
+            ],
+            [
+              "Fair test",
+              1.34,
+              "1.34x",
+              "hi"
+            ]
+          ]
+        },
+        {
+          "type": "bars",
+          "wide": true,
+          "cap": "Promotions bring back light players, not heavy ones",
+          "sub": "Extra return rate, by days played before the promotion (percentage points)",
+          "max": 25,
+          "rows": [
+            [
+              "1-3 days",
+              25,
+              "+25.0",
+              "hi"
+            ],
+            [
+              "4-9 days",
+              9.4,
+              "+9.4",
+              ""
+            ],
+            [
+              "10-19 days",
+              2.7,
+              "+2.7",
+              ""
+            ],
+            [
+              "20+ days",
+              0,
+              "-0.2",
+              ""
+            ]
+          ]
+        }
+      ],
+      "note": ""
+    },
+    {
+      "area": "Marketing channels · DigiPlus (ArenaPlus) · 2026",
+      "title": "One agency cost 28x more per customer. I proposed cutting it.",
+      "question": "Nobody had checked what our agency's customers cost against what they spent.",
+      "did": [
+        "Compared every ad channel's cost per paying customer with their 3-month revenue."
+      ],
+      "decision": "I recommended dropping the agency and moving the money to channels that make a profit.",
+      "flow": [
+        [
+          "Promo codes",
+          "177 codes"
+        ],
+        [
+          "Customers",
+          "matched one by one"
+        ],
+        [
+          "3-month revenue",
+          "after bonuses"
+        ],
+        [
+          "Cost",
+          "matched to finance"
+        ],
+        [
+          "Compare",
+          "every channel"
+        ]
+      ],
+      "value": "28x",
+      "valueLabel": "what the agency cost per paying customer, compared with ad networks.",
+      "charts": [
+        {
+          "type": "timeline",
+          "wide": true,
+          "cap": "How I checked it",
+          "steps": [
+            [
+              "Match",
+              "177 promo codes matched to customers one by one"
+            ],
+            [
+              "Value",
+              "3-month revenue per customer, after bonuses"
+            ],
+            [
+              "Cost",
+              "Matched to the marketing team's cost sheet"
+            ],
+            [
+              "Recommend",
+              "Drop the agency, move the money"
+            ]
+          ]
+        },
+        {
+          "type": "bars",
+          "cap": "The agency cost 28 times more to get one paying customer",
+          "sub": "Cost per new paying customer (ad networks = 1)",
+          "max": 28,
+          "rows": [
+            [
+              "Agency",
+              28,
+              "28x",
+              "w"
+            ],
+            [
+              "Paid social",
+              14,
+              "14x",
+              ""
+            ],
+            [
+              "Paid search",
+              13,
+              "13x",
+              ""
+            ],
+            [
+              "Ad networks",
+              1,
+              "1x",
+              "hi"
+            ]
+          ]
+        },
+        {
+          "type": "bars",
+          "cap": "...but its customers spent about the same as ad-network customers",
+          "sub": "Revenue per customer in the first 3 months (ad networks = 1)",
+          "max": 2.2,
+          "rows": [
+            [
+              "Paid social",
+              2.2,
+              "2.2x",
+              ""
+            ],
+            [
+              "Agency",
+              1,
+              "1.0x",
+              "w"
+            ],
+            [
+              "Ad networks",
+              1,
+              "1.0x",
+              "hi"
+            ],
+            [
+              "Paid search",
+              0.7,
+              "0.7x",
+              ""
+            ]
+          ]
+        },
+        {
+          "type": "waffle",
+          "wide": true,
+          "cap": "Only 2 of every 100 pesos spent on the agency came back",
+          "on": 2,
+          "sub": "Revenue from its customers within 3 months",
+          "legend": [
+            [
+              "warn",
+              "Came back within 3 months"
+            ],
+            [
+              "ground",
+              "Not recovered"
+            ]
+          ]
+        }
+      ],
+      "note": ""
+    },
+    {
+      "area": "Customer value · DigiPlus (ArenaPlus) · 2026",
+      "title": "A model that finds the customers worth spending on",
+      "question": "Budgets were planned on averages.",
+      "did": [
+        "Built a model that predicts each customer's spend for the next year, tested on 12 past months."
+      ],
+      "decision": "Its top 10% bring in 83% of revenue. Scores update every week and feed budget planning.",
+      "flow": [
+        [
+          "Snapshot",
+          "33 month-ends"
+        ],
+        [
+          "Model",
+          "gradient boosting"
+        ],
+        [
+          "Backtest",
+          "12 past months"
+        ],
+        [
+          "Check",
+          "error within limits"
+        ],
+        [
+          "Use",
+          "budgets, targeting"
+        ]
+      ],
+      "value": "83%",
+      "valueLabel": "of revenue comes from the 10% of customers the model ranks highest.",
+      "charts": [
+        {
+          "type": "timeline",
+          "wide": true,
+          "cap": "How I built and tested it",
+          "steps": [
+            [
+              "Data",
+              "33 month-end snapshots of customer activity"
+            ],
+            [
+              "Train",
+              "Gradient boosting on the older months"
+            ],
+            [
+              "Backtest",
+              "Checked on 12 newer months it never saw"
+            ],
+            [
+              "Use",
+              "Weekly scores feed budget planning"
+            ]
+          ]
+        },
+        {
+          "type": "curve",
+          "wide": true,
+          "cap": "Almost half of a new customer's 3-month revenue comes after the first month",
+          "sub": "Share of 90-day revenue, by day since joining"
+        },
+        {
+          "type": "bars",
+          "cap": "The model's top 10% bring in 83% of revenue",
+          "sub": "Share of total revenue from the top 10% each method picks",
+          "max": 1,
+          "rows": [
+            [
+              "New model",
+              0.834,
+              "83%",
+              "hi"
+            ],
+            [
+              "Old method",
+              0.579,
+              "58%",
+              ""
+            ]
+          ]
+        },
+        {
+          "type": "bars",
+          "cap": "Its prediction error is less than half the old method's",
+          "sub": "Old method = 100, lower is better",
+          "max": 100,
+          "rows": [
+            [
+              "Old method",
+              100,
+              "100",
+              ""
+            ],
+            [
+              "New model",
+              42,
+              "42",
+              "hi"
+            ]
+          ]
+        }
+      ],
+      "note": ""
+    },
+    {
+      "area": "Budget planning · DigiPlus (ArenaPlus) · 2026",
+      "title": "Caught a 2.2x overspend before launch",
+      "question": "New promotion plans went live without anyone checking the real cost.",
+      "did": [
+        "Ran each plan on past customer data before launch."
+      ],
+      "decision": "A reward wheel would have cost 2.2 times its budget. We fixed it before it went live.",
+      "flow": [
+        [
+          "Plan",
+          "as written"
+        ],
+        [
+          "Replay",
+          "on past data"
+        ],
+        [
+          "Rules",
+          "risk, VIP, caps"
+        ],
+        [
+          "Cost",
+          "per send, per month"
+        ],
+        [
+          "Adjust",
+          "to budget"
+        ]
+      ],
+      "value": "2.2x",
+      "valueLabel": "its budget, caught before launch.",
+      "charts": [
+        {
+          "type": "timeline",
+          "wide": true,
+          "cap": "How a plan is checked before launch",
+          "steps": [
+            [
+              "Plan",
+              "Promotion rules as written"
+            ],
+            [
+              "Replay",
+              "Run on past customer data"
+            ],
+            [
+              "Price",
+              "Cost per send and per month"
+            ],
+            [
+              "Fix",
+              "Change conditions until it fits"
+            ]
+          ]
+        },
+        {
+          "type": "bars",
+          "cap": "Over half of recent players come back with no promotion at all",
+          "sub": "Return within 7 days, by days since last bet",
+          "max": 60,
+          "rows": [
+            [
+              "Last bet ≤7 days ago",
+              57.4,
+              "57.4%",
+              "hi"
+            ],
+            [
+              "8-28 days",
+              17.8,
+              "17.8%",
+              ""
+            ],
+            [
+              "29-89 days",
+              4.5,
+              "4.5%",
+              ""
+            ],
+            [
+              "90-180 days",
+              1,
+              "1.0%",
+              ""
+            ]
+          ]
+        },
+        {
+          "type": "budget",
+          "cap": "The reward wheel would have cost 2.2 times its budget",
+          "sub": "Black line = budget",
+          "rows": [
+            [
+              "Plan as written",
+              2.2,
+              "2.2x",
+              "w"
+            ],
+            [
+              "After 8 changes",
+              1,
+              "1.0x",
+              "hi"
+            ]
+          ]
+        },
+        {
+          "type": "split",
+          "wide": true,
+          "cap": "One promotion type took half the sports budget",
+          "a": [
+            "Cross-sell",
+            51
+          ],
+          "b": [
+            "Everything else",
+            49
+          ]
+        }
+      ],
+      "note": ""
+    },
+    {
+      "area": "Partner payments · DigiPlus (ArenaPlus) · 2026",
+      "title": "We were paying a partner for 137x too many customers",
+      "question": "LiveMatch, our streaming partner, is paid for the customers it sends. Counts varied by up to 20x.",
+      "did": [
+        "Checked the payments against each customer's history and priced four payment rules."
+      ],
+      "decision": "We now pay only for customers who deposit within 7 days of a LiveMatch click.",
+      "flow": [
+        [
+          "Clicks",
+          "duplicates removed"
+        ],
+        [
+          "First deposit",
+          "per customer"
+        ],
+        [
+          "7-day window",
+          "click before deposit"
+        ],
+        [
+          "Payment",
+          "revenue share"
+        ],
+        [
+          "Report",
+          "two lines"
+        ]
+      ],
+      "value": "137x",
+      "valueLabel": "more customers in the payment than LiveMatch actually sent.",
+      "charts": [
+        {
+          "type": "timeline",
+          "wide": true,
+          "cap": "How I checked the payments",
+          "steps": [
+            [
+              "Audit",
+              "Payment sheet vs customer records"
+            ],
+            [
+              "Compare",
+              "Four ways of counting referrals"
+            ],
+            [
+              "Price",
+              "Four payment rules for the talks"
+            ],
+            [
+              "Adopt",
+              "7-day click rule"
+            ]
+          ]
+        },
+        {
+          "type": "squares",
+          "cap": "LiveMatch was paid for 137 customers for every 1 it sent",
+          "sub": "Area to scale"
+        },
+        {
+          "type": "bars",
+          "cap": "Each payment rule, as a share of the old contract",
+          "sub": "The company adopted the new-customer rule with a 7-day click window",
+          "max": 100,
+          "rows": [
+            [
+              "Old contract",
+              100,
+              "100%",
+              "w"
+            ],
+            [
+              "+ all returning customers",
+              13,
+              "13.0%",
+              ""
+            ],
+            [
+              "+ returns within 30 days (my pick)",
+              7.1,
+              "7.1%",
+              ""
+            ],
+            [
+              "New customers only (adopted)",
+              3.4,
+              "3.4%",
+              "hi"
+            ]
+          ]
+        },
+        {
+          "type": "waffle",
+          "wide": true,
+          "cap": "92% of what the old contract paid on came from existing customers",
+          "sub": "Out of every 100 pesos of revenue it counted",
+          "on": 92,
+          "legend": [
+            [
+              "warn",
+              "Customers who joined before this year (not new referrals)"
+            ],
+            [
+              "ground",
+              "New customers"
+            ]
+          ]
+        }
+      ],
+      "note": ""
+    },
+    {
+      "area": "VIP retention · DigiPlus (ArenaPlus) · 2026",
+      "title": "Phone calls lifted casino VIP retention 8 points",
+      "question": "Account managers didn't know which VIPs to call.",
+      "did": [
+        "Built a weekly at-risk list from a model plus the team's rule. Account managers called the VIPs on it."
+      ],
+      "decision": "Casino VIP retention rose 8 points a month later. VIPs are too few for a control group, so I compared retention before and after. Sports barely moved, because the season matters more than a call.",
+      "flow": [
+        [
+          "Monday",
+          "VIP snapshot"
+        ],
+        [
+          "Score",
+          "model + rule"
+        ],
+        [
+          "List",
+          "ranked A / B / C"
+        ],
+        [
+          "Call",
+          "account managers"
+        ],
+        [
+          "Check",
+          "5 weeks later"
+        ]
+      ],
+      "value": "+8pp",
+      "valueLabel": "casino VIP retention one month after the calls started.",
+      "charts": [
+        {
+          "type": "timeline",
+          "wide": true,
+          "cap": "How the test ran",
+          "steps": [
+            [
+              "Week 1",
+              "Model scores every VIP and ranks them A / B / C"
+            ],
+            [
+              "Weeks 1-4",
+              "Account managers call the A list first"
+            ],
+            [
+              "Month 1",
+              "Compare retention before and after"
+            ],
+            [
+              "Result",
+              "Casino +8pp. Sports unclear"
+            ]
+          ]
+        },
+        {
+          "type": "bars",
+          "cap": "Casino VIP retention rose 8 points after the calls",
+          "sub": "Retention before vs one month after the calls. No control group: VIPs are too few",
+          "max": 10,
+          "rows": [
+            [
+              "Casino VIPs",
+              8,
+              "+8pp",
+              "hi"
+            ],
+            [
+              "Sports VIPs",
+              0.3,
+              "unclear",
+              ""
+            ]
+          ]
+        },
+        {
+          "type": "bars",
+          "cap": "The model beat the old rule by only 3 points, so the rule stayed",
+          "sub": "Leaving VIPs caught in the top 10%. Line = the bar the model had to clear",
+          "max": 70,
+          "markAt": 65.5,
+          "rows": [
+            [
+              "Gradient boosting",
+              63.7,
+              "63.7%",
+              ""
+            ],
+            [
+              "Logistic regression",
+              62.1,
+              "62.1%",
+              ""
+            ],
+            [
+              "Simple rule (used)",
+              60.5,
+              "60.5%",
+              "hi"
+            ]
+          ]
+        }
+      ],
+      "note": ""
+    }
+  ],
+  "earlier": {
+    "eyebrow": "Before ArenaPlus",
+    "title": "Earlier work",
+    "items": [
+      {
+        "m": "GGPoker (NSUSLAB Korea) · 2023-2025",
+        "t": "Personalized campaigns for a global poker site",
+        "p": "Planned and ran personalized campaigns and measured every one. Revenue grew 25% and campaign return more than doubled.",
+        "chart": {
+          "type": "bars",
+          "cap": "Tournament campaign return",
+          "sub": "Before vs after removing reward-only players",
+          "max": 3.5,
+          "rows": [
+            [
+              "Before",
+              2.3,
+              "2.3x",
+              ""
+            ],
+            [
+              "After",
+              3.5,
+              "3.5x",
+              "hi"
+            ]
+          ]
+        }
+      },
+      {
+        "m": "Echo Marketing · 2015 · Search ads",
+        "t": "Bidding when Naver hid ad rankings",
+        "p": "Built a model to set search-ad bids. Cost per new customer fell 8% in the trial.",
+        "chart": {
+          "type": "bars",
+          "cap": "Cost per new customer",
+          "sub": "Before = 100",
+          "max": 100,
+          "rows": [
+            [
+              "Before",
+              100,
+              "100",
+              ""
+            ],
+            [
+              "With the model",
+              92,
+              "92",
+              "hi"
+            ]
+          ]
+        }
+      },
+      {
+        "m": "KAIST · M.S. Management Engineering",
+        "t": "How customers move toward a purchase",
+        "p": "Thesis on the order of channels customers use before buying. GPA 3.94/4.3."
+      }
+    ],
+    "tools": [
+      {
+        "l": "Data",
+        "p": "SQL, MaxCompute, Snowflake, DuckDB"
+      },
+      {
+        "l": "Modeling",
+        "p": "Python, scikit-learn, gradient boosting, scipy, pytest"
+      },
+      {
+        "l": "Measurement",
+        "p": "Holdouts, diff-in-diff, triple difference, backtests"
+      },
+      {
+        "l": "BI and tools",
+        "p": "Tableau, Quick BI, Dash, Sheets, Claude Code"
+      }
+    ]
+  }
+}
+</script>
+
+<script id="kapp">
+(function () {
+  var S = JSON.parse(document.getElementById("kdata").textContent);
+  var app = document.getElementById("app");
+  var editing = false, art = null;
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function E(path, text, tag, cls) { tag = tag || "span"; return "<" + tag + (cls ? ' class="' + cls + '"' : "") + ' data-p="' + path + '">' + esc(text) + "</" + tag + ">"; }
+  function cls(k) { return k === "hi" ? " hi" : k === "w" ? " w" : ""; }
+
+  function bars(c, p) {
+    var h = '<div class="bars">';
+    c.rows.forEach(function (r, i) {
+      var w = Math.max(1.5, (Math.abs(r[1]) / c.max) * 100);
+      h += '<div class="bar">' + E(p + ".rows." + i + ".0", r[0]) + '<div class="track"><div class="fill' + cls(r[3]) + '" style="width:' + Math.min(100, w).toFixed(1) + '%"></div>' +
+        (c.markAt ? '<div class="mark" style="left:' + ((c.markAt / c.max) * 100).toFixed(1) + '%"></div>' : "") + "</div>" + E(p + ".rows." + i + ".2", r[2], "span", "v") + "</div>";
+    });
+    return h + "</div>";
+  }
+  function diverge(c, p) {
+    var h = '<div class="div">';
+    c.rows.forEach(function (r, i) {
+      var w = (Math.abs(r[1]) / c.max) * 50, left = r[1] < 0 ? 50 - w : 50;
+      h += '<div class="drow">' + E(p + ".rows." + i + ".0", r[0]) + '<div class="dtrack"><div class="dfill fill' + cls(r[3]) + '" style="left:' + left.toFixed(1) + "%;width:" + w.toFixed(1) + '%"></div></div>' + E(p + ".rows." + i + ".2", r[2], "span", "v") + "</div>";
+    });
+    return h + "</div>";
+  }
+  function budget(c, p) {
+    var max = 2.4, h = '<div class="bars">';
+    c.rows.forEach(function (r, i) {
+      h += '<div class="bar">' + E(p + ".rows." + i + ".0", r[0]) + '<div class="track"><div class="fill' + cls(r[3]) + '" style="width:' + ((r[1] / max) * 100).toFixed(1) + '%"></div><div class="mark" style="left:' + ((1 / max) * 100).toFixed(1) + '%"></div></div>' + E(p + ".rows." + i + ".2", r[2], "span", "v") + "</div>";
+    });
+    return h + '</div><p class="note">Black line = the budget.</p>';
+  }
+  function waffle(c) {
+    var h = '<div class="waffle" role="img" aria-label="' + c.on + ' of 100 squares filled">';
+    for (var i = 0; i < 100; i++) h += "<i" + (i < c.on ? ' class="on"' : "") + "></i>";
+    var lg = c.legend || [["warn", "Filled"], ["ground", "Empty"]];
+    h += '</div><div class="legend">' + lg.map(function (l) { return '<span><s style="background:var(--' + l[0] + ')' + (l[0] === "ground" ? ';outline:1px solid var(--line)' : '') + '"></s>' + esc(l[1]) + '</span>'; }).join("") + '</div>';
+    return h;
+  }
+  function squares() {
+    var big = 150, small = big / Math.sqrt(137);
+    return '<svg viewBox="0 0 330 170" role="img" aria-label="Payment base square 137 times the area of the attributed cohort square">' +
+      '<rect x="10" y="10" width="' + big + '" height="' + big + '" fill="var(--warn)" opacity=".85"/>' +
+      '<rect x="190" y="' + (10 + big - small) + '" width="' + small.toFixed(1) + '" height="' + small.toFixed(1) + '" fill="var(--accent)"/>' +
+      '<text class="lab" x="20" y="32" style="fill:#fff">Paid for: 137</text>' +
+      '<text class="lab" x="' + (198 + small) + '" y="' + (6 + big) + '">Actually sent: 1</text>' +
+      '<line x1="160" y1="' + (10 + big) + '" x2="320" y2="' + (10 + big) + '" stroke="var(--line)"/></svg>';
+  }
+  function curve() {
+    return '<svg viewBox="0 0 520 180" role="img" aria-label="Cumulative 90-day value: 5 percent by day 2, about 55 percent by day 30, 100 percent by day 90">' +
+      '<rect x="182" y="14" width="318" height="138" fill="var(--tint)"/>' +
+      '<line x1="44" y1="152" x2="500" y2="152" stroke="var(--line)"/><line x1="44" y1="14" x2="44" y2="152" stroke="var(--line)"/>' +
+      '<line x1="44" y1="83" x2="500" y2="83" stroke="var(--line)" stroke-dasharray="3 4"/>' +
+      '<text x="38" y="156" text-anchor="end">0%</text><text x="38" y="87" text-anchor="end">50%</text><text x="38" y="18" text-anchor="end">100%</text>' +
+      '<text x="44" y="170">day 0</text><text x="182" y="170" text-anchor="middle">day 30</text><text x="500" y="170" text-anchor="end">day 90</text>' +
+      '<polyline points="44,152 54.1,145.1 182,76.1 500,14" fill="none" stroke="var(--accent)" stroke-width="2.5"/>' +
+      '<circle cx="54.1" cy="145.1" r="4" fill="var(--accent)"/><circle cx="182" cy="76.1" r="4" fill="var(--accent)"/><circle cx="500" cy="14" r="4" fill="var(--accent)"/>' +
+      '<text class="lab" x="96" y="148">5% by day 2</text><text class="lab" x="192" y="98">~55% by day 30</text>' +
+      '<text x="380" y="136" text-anchor="middle" style="fill:var(--accent);font-weight:600">~45% arrives after day 30</text></svg>';
+  }
+  function timeline(c, p) {
+    return '<ol class="tl">' + c.steps.map(function (s, i) { return '<li><span class="tl-k">' + esc(s[0]) + '</span>' + E(p + ".steps." + i + ".1", s[1], "span", "tl-v") + "</li>"; }).join("") + "</ol>";
+  }
+  function chart(c, p) {
+    var h = '<div class="chart' + (c.wide ? " wide" : "") + '">' + E(p + ".cap", c.cap, "p", "cap") + (c.sub ? E(p + ".sub", c.sub, "p", "sub") : "");
+    if (c.type === "bars") h += bars(c, p);
+    else if (c.type === "diverge") h += diverge(c, p);
+    else if (c.type === "budget") h += budget(c, p);
+    else if (c.type === "waffle") h += waffle(c);
+    else if (c.type === "squares") h += squares();
+    else if (c.type === "curve") h += curve();
+    else if (c.type === "timeline") h += timeline(c, p);
+    else if (c.type === "split") h += '<div class="bars"><div class="track" style="height:26px;display:flex"><div class="fill hi" style="width:' + c.a[1] + '%"></div><div class="fill" style="width:' + c.b[1] + '%"></div></div><div class="legend"><span><s style="background:var(--accent)"></s>' + esc(c.a[0]) + " " + c.a[1] + '%</span><span><s style="background:var(--bar)"></s>' + esc(c.b[0]) + " " + c.b[1] + "%</span></div></div>";
+    else if (c.type === "list") { h += '<ul class="blk" style="padding-left:18px;display:grid;gap:4px;font-size:14.5px;color:var(--ink2)">'; c.items.forEach(function (it, i) { h += E(p + ".items." + i, it, "li"); }); h += "</ul>"; }
+    return h + "</div>";
+  }
+
+  function render() {
+    var c = S.cover, h = "";
+    h += '<section class="sheet cover"><div style="display:grid;gap:16px;min-width:0">' + E("cover.eyebrow", c.eyebrow, "p", "eyebrow") +
+      "<div>" + E("cover.name", c.name, "h1") + E("cover.role", c.role, "p", "role") + "</div>" + E("cover.lede", c.lede, "p", "lede") +
+      '<p class="contact">' + c.contact.map(function (x, i) { return E("cover.contact." + i, x); }).join("") + "</p></div>" +
+      '<div class="steps"><span class="lbl">How I work</span>' + c.steps.map(function (s, i) { return '<div class="step"><i>' + (i + 1) + "</i><div>" + E("cover.steps." + i + ".b", s.b, "b") + E("cover.steps." + i + ".s", s.s) + "</div></div>"; }).join("") + "</div>" +
+      '<div class="stats">' + c.stats.map(function (s, i) { return '<div class="stat">' + E("cover.stats." + i + ".v", s.v, "span", "v") + E("cover.stats." + i + ".k", s.k, "span", "k") + "</div>"; }).join("") + "</div>" +
+      '<div class="map">' + c.map.map(function (m, i) { return "<div>" + E("cover.map." + i + ".b", m.b, "b") + E("cover.map." + i + ".s", m.s) + "</div>"; }).join("") + "</div></section>";
+
+    S.cases.forEach(function (k, ci) {
+      var p = "cases." + ci;
+      h += '<section class="sheet case"><div class="head">' + E(p + ".area", k.area, "p", "eyebrow") + E(p + ".title", k.title, "h2") + "</div>" +
+        '<div class="story"><div class="blk"><span class="lbl">The problem</span>' + E(p + ".question", k.question, "p") + "</div>" +
+        '<div class="blk"><span class="lbl">What I did</span>' + (k.did.length === 1 ? E(p + ".did.0", k.did[0], "p") : "<ul>" + k.did.map(function (d, i) { return E(p + ".did." + i, d, "li"); }).join("") + "</ul>") + "</div>" +
+        '<div class="decision"><span class="lbl">Result</span>' + E(p + ".decision", k.decision, "p") + "</div></div>" +
+        '<div class="evidence"><div class="hero">' + E(p + ".value", k.value, "span", "v") + E(p + ".valueLabel", k.valueLabel, "span", "k") + "</div>" +
+        '<div class="charts">' + k.charts.map(function (ch, i) { return chart(ch, p + ".charts." + i); }).join("") + "</div>" +
+        (k.note ? E(p + ".note", k.note, "p", "note") : "") + "</div></section>";
+    });
+
+    var e = S.earlier;
+    h += '<section class="sheet pair"><div class="head">' + E("earlier.eyebrow", e.eyebrow, "p", "eyebrow") + E("earlier.title", e.title, "h2") + "</div>" +
+      e.items.map(function (it, i) { var p = "earlier.items." + i; return '<div class="mini">' + E(p + ".m", it.m, "span", "m") + E(p + ".t", it.t, "h3") + E(p + ".p", it.p, "p") + (it.chart ? chart(it.chart, p + ".chart") : "") + "</div>"; }).join("") +
+      '<div class="tools">' + e.tools.map(function (t, i) { return "<div>" + E("earlier.tools." + i + ".l", t.l, "span", "lbl") + E("earlier.tools." + i + ".p", t.p, "p") + "</div>"; }).join("") + "</div></section>";
+
+    app.innerHTML = '<div class="deck">' + h + "</div>" + editbar();
+    wire();
+  }
+  function editbar() {
+    if (!art) return "";
+    return editing ? '<div class="editbar"><button id="kcancel" type="button">Cancel</button><button id="ksave" class="primary" type="button">Save</button></div>'
+                   : '<div class="editbar"><button id="kedit" type="button">Edit</button></div>';
+  }
+  function setPath(path, val) { var ks = path.split("."), o = S; for (var i = 0; i < ks.length - 1; i++) o = o[ks[i]]; o[ks[ks.length - 1]] = val; }
+  function toast(msg) { var t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg; document.body.appendChild(t); setTimeout(function () { t.remove(); }, 2600); }
+  function wire() {
+    if (editing) app.querySelectorAll("[data-p]").forEach(function (el) { el.setAttribute("contenteditable", "plaintext-only"); if (el.contentEditable !== "plaintext-only") el.setAttribute("contenteditable", "true"); });
+    document.body.classList.toggle("editing", editing);
+    var b;
+    if ((b = document.getElementById("kedit"))) b.onclick = function () { editing = true; render(); };
+    if ((b = document.getElementById("kcancel"))) b.onclick = function () { S = JSON.parse(document.getElementById("kdata").textContent); editing = false; render(); };
+    if ((b = document.getElementById("ksave"))) b.onclick = save;
+  }
+  function doc() {
+    var json = JSON.stringify(S, null, 2).replace(/</g, "\\u003c");
+    return '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>' +
+      '<title>Kyle Yun Case Files</title>\n' +
+      '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Fira+Code:wght@400;500;600&family=Fira+Sans:wght@400;500;600&display=swap">\n' +
+      '<style id="kstyle">' + document.getElementById("kstyle").textContent + "</style>\n\n<div id=\"app\"></div>\n\n" +
+      '<script type="application/json" id="kdata">\n' + json + "\n<\/script>\n\n" + '<script id="kapp">' + document.getElementById("kapp").textContent + "<\/script>\n</body></html>";
+  }
+  function save() {
+    app.querySelectorAll("[data-p]").forEach(function (el) { setPath(el.getAttribute("data-p"), el.innerText.trim()); });
+    var btn = document.getElementById("ksave"); if (btn) { btn.disabled = true; btn.textContent = "Saving…"; }
+    art.publish(doc()).then(function () { toast("Saved"); }).catch(function (e) {
+      var code = e && e.code;
+      toast(code === "conflict" ? "Someone saved first. The page reloaded to their version." : (code === "not_writer" || code === "not_granted") ? "This view can't save. Ask the owner for edit access." : "Couldn't save. Try again.");
+      if (btn) { btn.disabled = false; btn.textContent = "Save"; }
+    });
+  }
+  render();
+})();
+</script>
+</body></html>
