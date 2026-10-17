@@ -5,178 +5,152 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="referrer" content="no-referrer">
-<title>Donghwan (Kyle) Yun - Resume</title>
+<title>Donghwan Yun | Resume</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Fira+Code:wght@500;600&family=Fira+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
 <style>
-:root {
-  --paper:#FFFFFF; --ground:#F2F4F8; --ink:#0B1220; --ink2:#3B4658; --mute:#697486; --line:#DCE1E9; --tint:#ECF1FD;
-  --accent:#1F4FD8; --accent-ink:#FFFFFF; --flash:#FFF4D6;
-  --display:"Archivo","Segoe UI",Arial,sans-serif; --body:"Fira Sans","Segoe UI",Arial,sans-serif; --data:"Fira Code",Consolas,monospace;
-  color-scheme: light }
-@media (prefers-color-scheme: dark) { :root {
-  --paper:#121926; --ground:#0B111C; --ink:#E8EDF5; --ink2:#B6C0CF; --mute:#8C97A8; --line:#263044; --tint:#18233D;
-  --accent:#7EA2FF; --accent-ink:#0B1220; --flash:#3A3320; color-scheme: dark } }
+:root { --sky:#C9DCF0; --sky2:#A9C7E6; --sky3:#EEF4FB; --ink:#121417; --ink2:#41464D; --mute:#6E747C; --line:#E6E9ED; --white:#FFFFFF; --hi:#FFF1C2; color-scheme: light }
 * { box-sizing:border-box }
-html { scroll-behavior:smooth; scroll-padding-top:76px }
-body { margin:0; background:var(--ground); color:var(--ink); font:16px/1.55 var(--body) }
+html { scroll-behavior:smooth }
+body { margin:0; background:var(--white); color:var(--ink); font:16px/1.6 "DM Sans","Segoe UI",Arial,sans-serif }
 h1,h2,h3,h4,p,ul { margin:0 }
-h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.01em; text-wrap:balance }
-a { color:var(--accent); text-underline-offset:3px }
-.wrap { max-width:1040px; margin:0 auto; padding-left:max(16px,env(safe-area-inset-left)); padding-right:max(16px,env(safe-area-inset-right)) }
+h1,h2,h3,h4 { font-family:"Lexend","Segoe UI",Arial,sans-serif }
+a { color:inherit }
+.page { display:grid; grid-template-columns:minmax(340px,42%) 1fr; min-height:100vh }
 
-/* top bar */
-.bar { position:sticky; top:0; z-index:10; background:color-mix(in srgb, var(--ground) 88%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line) }
-.bar .wrap { display:flex; align-items:center; justify-content:space-between; gap:12px; padding-block:10px; flex-wrap:wrap }
-.tabs { display:flex; gap:4px; background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:4px }
-.tabs button { font:600 14px var(--display); border:0; background:none; color:var(--mute); padding:7px 14px; border-radius:999px; cursor:pointer }
-.tabs button[aria-selected="true"] { background:var(--ink); color:var(--paper) }
-.btn { display:inline-flex; align-items:center; gap:8px; font:600 14px var(--display); background:var(--accent); color:var(--accent-ink); text-decoration:none; padding:9px 16px; border-radius:999px }
-.btn:hover { filter:brightness(1.08) }
-.btn svg { width:16px; height:16px }
+/* left: who I am */
+.side { background:var(--sky); position:sticky; top:0; height:100vh; display:flex; flex-direction:column; justify-content:center; gap:26px;
+  padding:48px max(28px,4vw) 40px max(28px,env(safe-area-inset-left)) }
+.avatar { width:132px; height:132px; border-radius:50%; overflow:hidden; background:var(--white); display:grid; place-items:center; box-shadow:0 0 0 6px rgba(255,255,255,.55) }
+.avatar img { width:100%; height:100%; object-fit:cover }
+.avatar span { font:800 44px "Lexend",sans-serif; color:var(--ink) }
+.side h1 { font-size:clamp(46px,5.6vw,84px); font-weight:800; line-height:.95; letter-spacing:-.03em }
+.side .nick { font:500 18px "Lexend",sans-serif; color:var(--ink2); margin-top:12px }
+.about { display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center }
+.about h2 { font-size:clamp(24px,2.4vw,32px); font-weight:500; white-space:nowrap }
+.about p { font-size:14px; font-weight:700; line-height:1.4; max-width:34ch }
+.social { display:flex; gap:12px; flex-wrap:wrap }
+.social a { width:46px; height:46px; border-radius:50%; background:var(--ink); color:var(--white); display:grid; place-items:center; transition:transform .15s, background .15s }
+.social a:hover { transform:translateY(-3px); background:#2E5E9A }
+.social svg { width:20px; height:20px }
+.cta { align-self:flex-start; font:600 15px "Lexend",sans-serif; text-decoration:none; background:var(--ink); color:var(--white); padding:12px 22px; border-radius:999px }
+.cta:hover { background:#2E5E9A }
 
-/* hero */
-.hero { padding-block:40px 8px; display:grid; gap:10px }
-.eyebrow { font:600 12px var(--data); letter-spacing:.12em; text-transform:uppercase; color:var(--accent) }
-.hero h1 { font-size:clamp(34px,6vw,58px); font-weight:800; line-height:1 }
-.hero .tag { font:600 clamp(16px,2vw,20px) var(--display); color:var(--ink2) }
-.contact { display:flex; flex-wrap:wrap; gap:6px 18px; font:500 14px var(--data); color:var(--mute) }
-.lede { max-width:68ch; color:var(--ink2); font-size:17px; margin-top:6px }
-.lede b { color:var(--ink) }
+/* right: the record */
+.main { padding:44px max(28px,env(safe-area-inset-right)) 80px max(28px,4vw); display:grid; gap:44px; align-content:start; min-width:0 }
+.nav { display:flex; gap:6px 20px; flex-wrap:wrap; font:500 14px "Lexend",sans-serif; color:var(--mute) }
+.nav a { text-decoration:none } .nav a:hover { color:var(--ink) }
+section { display:grid; gap:18px; scroll-margin-top:24px }
+section > h2 { font-size:26px; font-weight:700; letter-spacing:-.01em }
+.lead { color:var(--ink2); max-width:70ch }
+.m-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px }
+.m { text-align:left; border:0; background:var(--sky3); border-radius:14px; padding:16px; display:grid; gap:4px; cursor:pointer; font:inherit; color:inherit; transition:background .15s }
+.m:hover { background:var(--sky) }
+.m b { font:700 26px/1 "Lexend",sans-serif }
+.m span { font-size:13px; color:var(--ink2); line-height:1.35 }
 
-/* headline numbers */
-.metrics { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:10px; padding-block:22px 6px }
-.m { text-align:left; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px; display:grid; gap:6px; cursor:pointer; font:inherit; color:inherit; transition:transform .15s, border-color .15s }
-.m:hover { transform:translateY(-2px); border-color:var(--accent) }
-.m .v { font:600 clamp(22px,2.6vw,28px)/1 var(--data); color:var(--accent) }
-.m .k { font-size:12.5px; color:var(--mute); line-height:1.35 }
-.hint { font-size:13px; color:var(--mute) }
+.job { border-left:7px solid var(--sky); padding:4px 0 4px 18px; transition:border-color .2s }
+.job + .job { margin-top:14px }
+.job:hover, .job[open] { border-color:var(--sky2) }
+.job summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:52px 1fr 24px; gap:14px; align-items:center }
+.job summary::-webkit-details-marker { display:none }
+.jt h3 { font-size:19px; font-weight:700; text-transform:uppercase; letter-spacing:.01em; line-height:1.2 }
+.jt h3 a { text-decoration:none } .jt h3 a:hover { text-decoration:underline; text-underline-offset:4px }
+.role { font-weight:500; color:var(--ink2) }
+.when { font-size:13.5px; color:var(--mute) }
+.chev { width:10px; height:10px; border-right:2px solid var(--mute); border-bottom:2px solid var(--mute); transform:rotate(45deg); transition:transform .2s; justify-self:center }
+.job[open] .chev { transform:rotate(225deg) }
+.job ul { margin:14px 0 8px 66px; padding-left:18px; display:grid; gap:8px; color:var(--ink2) }
+.job li { border-radius:6px; transition:background .6s, outline-color .6s; outline:6px solid transparent }
+.job li.flash { background:var(--hi); outline-color:var(--hi) }
+.job li b, .letter b { color:var(--ink) }
 
-/* panels */
-.panel { padding-block:22px 64px; display:grid; gap:18px }
-.panel[hidden] { display:none }
-.card { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:clamp(18px,3vw,32px); display:grid; gap:16px; min-width:0 }
-.card > h2 { font-size:13px; font-family:var(--data); font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--mute) }
-.job { display:grid; gap:10px; padding-top:16px; border-top:1px solid var(--line) }
-.job:first-of-type { border-top:0; padding-top:0 }
-.jh { display:flex; justify-content:space-between; gap:8px 16px; flex-wrap:wrap }
-.jh h3 { font-size:19px }
-.role { color:var(--ink2); font-style:italic }
-.meta { display:grid; justify-items:end; font:500 13px var(--data); color:var(--mute) }
-.job ul { padding-left:20px; display:grid; gap:7px; color:var(--ink2) }
-.job li { border-radius:6px; transition:background .6s }
-.job li b, .card p b, .pts b { color:var(--ink); font-weight:600; background:var(--tint); padding:0 4px; border-radius:4px }
-.job li.flash { background:var(--flash); outline:6px solid var(--flash) }
-details > summary { cursor:pointer; font:600 14px var(--display); color:var(--accent); list-style:none; padding-top:14px; border-top:1px solid var(--line) }
-details > summary::-webkit-details-marker { display:none }
-details > summary::after { content:" +" } details[open] > summary::after { content:" -" }
-details .job:first-of-type { border-top:0 }
-.two { display:grid; grid-template-columns:1.4fr 1fr; gap:18px }
-.sk { display:grid; gap:8px } .sk + .sk { margin-top:6px }
-.sk h4 { font-size:14px; color:var(--ink2) }
-.chips { display:flex; flex-wrap:wrap; gap:6px }
-.chips span { font-size:13px; background:var(--ground); border:1px solid var(--line); border-radius:999px; padding:3px 10px }
-.ed { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap } .ed + .ed { padding-top:12px; border-top:1px solid var(--line) }
-.ed h3 { font-size:16px } .ed p { color:var(--mute); font-size:14px }
-.when { font:500 13px var(--data); color:var(--mute) }
-.letter { max-width:72ch; display:grid; gap:14px; color:var(--ink2); font-size:16.5px }
-.pts { padding-left:20px; display:grid; gap:10px }
-.lab { color:var(--ink); font-weight:600; font-family:var(--display) }
-.frame { width:100%; border:0; border-radius:14px; min-height:80vh; background:var(--ground) }
-footer { text-align:center; color:var(--mute); font-size:13px; padding-bottom:40px }
-@media (max-width:860px) { .metrics { grid-template-columns:repeat(3,minmax(0,1fr)) } .two { grid-template-columns:1fr } }
-@media (max-width:480px) { .metrics { grid-template-columns:repeat(2,minmax(0,1fr)) } .meta { justify-items:start } .tabs button { padding:7px 10px } }
+.logo-link { display:block; border-radius:12px }
+.logo { position:relative; width:52px; height:52px; border-radius:12px; background:var(--white); border:1px solid var(--line); display:grid; place-items:center; overflow:hidden }
+.logo i { font:700 15px "Lexend",sans-serif; font-style:normal; color:var(--mute) }
+.logo img { position:absolute; inset:8px; width:calc(100% - 16px); height:calc(100% - 16px); object-fit:contain; background:var(--white) }
+
+.skills { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 28px }
+.sk { display:grid; gap:8px; align-content:start }
+.sk h4 { font-size:15px; font-weight:600 }
+.tags { display:flex; flex-wrap:wrap; gap:6px }
+.tags span { font-size:13.5px; background:var(--sky3); border-radius:999px; padding:3px 11px }
+.ed { display:grid; grid-template-columns:52px 1fr; gap:14px; border-left:7px solid var(--sky); padding-left:18px }
+.ed + .ed { margin-top:14px }
+.ed h3 { font-size:17px; font-weight:600 } .ed p { color:var(--ink2); font-size:14.5px }
+
+.letter { background:var(--sky3); border-radius:18px; padding:clamp(20px,3vw,34px); display:grid; gap:14px; color:var(--ink2); max-width:76ch }
+.pts { padding-left:18px; display:grid; gap:10px }
+.lab { font-family:"Lexend",sans-serif; font-weight:600 }
+.cases { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; border:2px solid var(--sky); border-radius:18px; padding:22px 24px }
+.cases p { color:var(--ink2); max-width:52ch }
+.cases a { font:600 15px "Lexend",sans-serif; text-decoration:none; background:var(--sky); padding:11px 20px; border-radius:999px }
+.cases a:hover { background:var(--sky2) }
+
+@media (max-width:960px) {
+  .page { grid-template-columns:1fr }
+  .side { position:static; height:auto; padding:40px max(20px,env(safe-area-inset-right)) 36px max(20px,env(safe-area-inset-left)) }
+  .main { padding:36px max(20px,env(safe-area-inset-right)) 64px max(20px,env(safe-area-inset-left)) }
+}
+@media (max-width:560px) {
+  .m-grid { grid-template-columns:repeat(2,minmax(0,1fr)) } .skills { grid-template-columns:1fr }
+  .about { grid-template-columns:1fr; gap:8px } .job ul { margin-left:0 }
+  .job summary { grid-template-columns:44px 1fr 18px } .logo { width:44px; height:44px }
+}
 </style>
 </head>
 <body>
-<div class="bar"><div class="wrap">
-  <div class="tabs" role="tablist">
-    <button role="tab" data-tab="resume" aria-selected="true">Resume</button>
-    <button role="tab" data-tab="cover" aria-selected="false">Cover letter</button>
-    <button role="tab" data-tab="cases" aria-selected="false">Case files</button>
+<div class="page">
+<aside class="side">
+  <div class="avatar"><img src="photo.jpg" alt="Donghwan Yun"></div>
+  <div><h1>Donghwan<br>Yun</h1><p class="nick">Kyle · Senior Marketing Analyst</p></div>
+  <div class="about"><h2>About me</h2><p>I figure out where marketing money actually pays off, and move it there. LTV forecasting, attribution, channel budgeting.</p></div>
+  <div class="social">
+    <a href="https://www.linkedin.com/in/donghwanyun" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06C21.1 9.29 22 11.7 22 14.9V21h-4v-5.4c0-1.3-.03-2.97-1.8-2.97-1.82 0-2.1 1.42-2.1 2.88V21h-4z"/></svg></a>
+    <a href="mailto:yun090914@gmail.com" title="yun090914@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+    <a href="portfolio.html" target="_blank" rel="noopener" title="Case files" aria-label="Case files"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></a>
+    <a href="Donghwan_Yun_Resume.pdf" download title="Download PDF" aria-label="Download PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg></a>
   </div>
-  <a class="btn" href="Donghwan_Yun_Resume.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg>Export to PDF</a>
-</div></div>
+  <a class="cta" href="Donghwan_Yun_Resume.pdf" download>Export to PDF</a>
+</aside>
 
-<header class="wrap hero">
-  <p class="eyebrow">Senior Marketing Analyst</p>
-  <h1>Donghwan (Kyle) Yun</h1>
-  <p class="tag">LTV forecasting, attribution, channel budgeting</p>
-  <p class="contact"><span>Manila, Philippines (remote)</span><a href="mailto:yun090914@gmail.com">yun090914@gmail.com</a><a href="https://www.linkedin.com/in/donghwanyun" rel="noopener">linkedin.com/in/donghwanyun</a></p>
-  <p class="lede">I&#x27;ve worked in analytics for 6+ years, the last three in iGaming (GGPoker, then ArenaPlus). Most of my week goes into one question: where should the next peso of marketing and CRM budget go? I answer it by putting CAC and 90-day LTV on the same cohort, keeping a control group on every campaign, and running LTV and churn models in production. Player value in iGaming behaves a lot like a subscription: retention, churn and payback decide whether a channel is worth its cost. The latest results: about <b>PHP 10M</b> saved on promotions in a month, and an LTV model whose top 10% of players bring in <b>83%</b> of revenue. M.S., KAIST.</p>
-  <div class="metrics"><button class="m" data-go="b0-0"><span class="v">28x</span><span class="k">an agency&#x27;s cost per paying player vs ad networks</span></button><button class="m" data-go="b0-1"><span class="v">58%</span><span class="k">more accurate LTV forecasts than the old rule</span></button><button class="m" data-go="b0-1"><span class="v">83%</span><span class="k">of revenue from the top 10% the model picks</span></button><button class="m" data-go="b0-3"><span class="v">PHP 10M</span><span class="k">saved on promotions in one month</span></button><button class="m" data-go="b0-6"><span class="v">137x</span><span class="k">over-crediting caught in a partner&#x27;s attribution</span></button><button class="m" data-go="b0-5"><span class="v">+8pp</span><span class="k">casino VIP retention a month after the calls</span></button></div>
-  <p class="hint">Click a number to see the line behind it.</p>
-</header>
-
-<main class="wrap">
-<section class="panel" id="resume" data-panel="resume">
-  <div class="card"><h2>Experience</h2><article class="job"><div class="jh"><div><h3>DigiPlus Interactive Corp. (ArenaPlus)</h3><p class="role">Data Scientist (Senior Specialist) &amp; AP Part Leader</p></div><div class="meta"><span>Aug 2025 - Present</span><span>Manila, Philippines</span></div></div><ul><li id="b0-0">One agency was costing us <b>28x</b> more per paying player than our ad networks, and had earned back <b>2%</b> of what we spent. I put CAC and 90-day value side by side for every traffic source and recommended cutting it.</li><li id="b0-1">Built an LTV model that scores every player weekly. It is <b>58%</b> more accurate than the rule we used before, and the top 10% it picks bring in <b>83%</b> of revenue. Budget planning now starts from these scores.</li><li id="b0-2"><b>45%</b> of a new player&#x27;s 90-day revenue shows up after the first month. That cohort result stopped us from killing channels on one week of data.</li><li id="b0-3">Designed and built the A/B test every CRM campaign now runs on: a stratified <b>10%</b> control group, with lift read at day 7 and day 30. Once campaigns were judged on real lift, promo spend dropped from over 10% of GGR to about 5% within a month. That is about <b>PHP 10M</b> saved, and betting volume held.</li><li id="b0-4">Before a promotion goes live, I replay it on past data. One reward wheel would have cost <b>2.2x</b> its budget. We changed 8 of its conditions before launch.</li><li id="b0-5">Built a VIP churn model (gradient boosting, backtested) that gives account managers a weekly call list. Casino VIP retention was up <b>8 percentage points</b> a month later. Sports barely moved, since the season matters more than a call.</li><li id="b0-6">We were paying our live-streaming partner, LiveMatch, for <b>137x</b> more players than it actually sent. I rewrote the attribution rule (new players only, 7-day click window) and the company adopted it.</li><li id="b0-7">Run the weekly, monthly and quarterly marketing reviews for my department head, and budgets get moved off them. The monthly one used to take 4-5 days to put together. Now it takes half a day.</li><li id="b0-8">Built 10+ self-service dashboards and KPI alerts (Streamlit, Dash) for 5 teams. They save about <b>12 hours</b> of manual work weekly.</li></ul></article><article class="job"><div class="jh"><div><h3>NSUSLAB Korea (GGPoker)</h3><p class="role">CRM Operator &amp; Data Analyst, CRM Team</p></div><div class="meta"><span>Nov 2023 - Aug 2025</span><span>Seoul, South Korea</span></div></div><ul><li id="b1-0">Planned, ran and measured personalized CRM campaigns in Optimove: tournaments, new game launches, and dates like Valentine&#x27;s Day. Revenue grew <b>25%</b> in 2024 and campaign ROI more than doubled.</li><li id="b1-1">Some players only showed up for free rewards. Taking them out of the targets moved tournament campaign ROI from <b>2.3x to 3.5x</b> in a month.</li><li id="b1-2">Win-back test: reminded inactive players of a big win they once had. It returned <b>3.1x</b> its cost.</li><li id="b1-3">Automated the campaign report (3-4 days of work a month, now updated daily) and set alerts for any daily revenue swing over 10%.</li></ul></article>
-    <details><summary>Earlier roles: KIDA, TMAX BI, Echo Marketing</summary><article class="job"><div class="jh"><div><h3>Korea Institute for Defense Analyses (KIDA)</h3><p class="role">Researcher</p></div><div class="meta"><span>Sep 2020 - Aug 2023</span><span>Seoul, South Korea</span></div></div><ul><li id="b2-0">Built a text-mining model on North Korean state media that called provocations with <b>80%</b> accuracy. Also published an SSCI paper on Korea&#x27;s Defense Innovation 4.0 plan.</li></ul></article><article class="job"><div class="jh"><div><h3>TMAX BI</h3><p class="role">Researcher (alternative military service)</p></div><div class="meta"><span>Feb 2018 - Sep 2020</span><span>Seoul, South Korea</span></div></div><ul><li id="b3-0">Planned and built screens and features for the company&#x27;s B2B CRM platform, first Sales CRM and later HyperCRM.</li></ul></article><article class="job"><div class="jh"><div><h3>Echo Marketing</h3><p class="role">Account Executive &amp; Data Analyst</p></div><div class="meta"><span>Jan 2015 - Sep 2015</span><span>Seoul, South Korea</span></div></div><ul><li id="b4-0">Naver stopped showing ad rankings, so I built a model to set search-ad bids without them. CPA fell <b>8%</b> in the trial.</li></ul></article></details>
-  </div>
-  <div class="two">
-    <div class="card"><h2>Skills</h2><div class="sk"><h4>Marketing economics</h4><div class="chips"><span>LTV forecasting</span><span>CAC/CPA</span><span>payback</span><span>ROI/ROAS</span><span>retention and churn</span><span>cohort analysis</span><span>channel attribution</span><span>budget allocation</span></div></div><div class="sk"><h4>Experimentation &amp; statistics</h4><div class="chips"><span>A/B testing</span><span>hypothesis testing</span><span>stratified control groups</span><span>difference-in-differences</span><span>backtesting</span></div></div><div class="sk"><h4>Modeling</h4><div class="chips"><span>LTV and churn prediction</span><span>gradient boosting</span><span>logistic regression</span></div></div><div class="sk"><h4>Data tools &amp; languages</h4><div class="chips"><span>SQL</span><span>Python (pandas, scikit-learn)</span><span>R</span><span>Snowflake</span><span>MaxCompute</span></div></div><div class="sk"><h4>BI &amp; dashboards</h4><div class="chips"><span>Tableau</span><span>Quick BI</span><span>Streamlit</span><span>Dash</span><span>Google Sheets</span><span>Lark Sheets</span></div></div><div class="sk"><h4>CRM &amp; automation</h4><div class="chips"><span>Optimove</span><span>Pipedream</span><span>Google Apps Script</span><span>Claude Code</span></div></div><div class="sk"><h4>Languages</h4><div class="chips"><span>English (Fluent)</span><span>Korean (Native)</span><span>Mandarin (Basic)</span></div></div></div>
-    <div class="card"><h2>Education</h2><div class="ed"><div><h3>M.S. in Management Engineering, KAIST</h3><p>GPA 3.94/4.3. Thesis: customer path analysis using sequential pattern mining.</p></div><span class="when">2016 - 2018</span></div><div class="ed"><div><h3>B.S. in Industrial &amp; Systems Engineering, KAIST</h3><p>Dual degree in Business &amp; Technology Management. GPA 3.54/4.3. Project: AI-based predictive modeling for semiconductor manufacturing.</p></div><span class="when">2011 - 2016</span></div></div>
-  </div>
-</section>
-
-<section class="panel" id="cover" data-panel="cover" hidden>
-  <div class="card"><h2>Cover letter</h2><div class="letter"><p>Dear Hiring Team,</p>
+<main class="main">
+  <nav class="nav"><a href="#highlights">Highlights</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#education">Education</a><a href="#letter">Cover letter</a><a href="#cases">Case files</a></nav>
+  <section id="highlights"><h2>Highlights</h2><p class="lead">I&#x27;ve worked in analytics for 6+ years, the last three in iGaming (GGPoker, then ArenaPlus). Most of my week goes into one question: where should the next peso of marketing and CRM budget go? I answer it by putting CAC and 90-day LTV on the same cohort, keeping a control group on every campaign, and running LTV and churn models in production. Player value in iGaming behaves a lot like a subscription: retention, churn and payback decide whether a channel is worth its cost. The latest results: about <b>PHP 10M</b> saved on promotions in a month, and an LTV model whose top 10% of players bring in <b>83%</b> of revenue. M.S., KAIST.</p><div class="m-grid"><button class="m" data-go="b0-0"><b>28x</b><span>agency cost per paying player vs ad networks</span></button><button class="m" data-go="b0-1"><b>58%</b><span>more accurate LTV forecasts</span></button><button class="m" data-go="b0-1"><b>83%</b><span>of revenue from the top 10% the model picks</span></button><button class="m" data-go="b0-3"><b>PHP 10M</b><span>saved on promotions in one month</span></button><button class="m" data-go="b0-6"><b>137x</b><span>partner over-crediting caught</span></button><button class="m" data-go="b0-5"><b>+8pp</b><span>casino VIP retention after the calls</span></button></div></section>
+  <section id="experience"><h2>Experience</h2><div><details class="job" open id="job0"><summary><a class="logo-link" href="https://www.digiplus.com.ph" target="_blank" rel="noopener" title="DigiPlus Interactive Corp. (ArenaPlus) website"><span class="logo"><i>DI</i><img src="https://www.google.com/s2/favicons?domain=digiplus.com.ph&sz=128" alt="" loading="lazy" onload="if(this.naturalWidth<32)this.remove()" onerror="this.remove()"></span></a><div class="jt"><h3><a href="https://www.digiplus.com.ph" target="_blank" rel="noopener">DigiPlus Interactive Corp. (ArenaPlus)</a></h3><p class="role">Data Scientist (Senior Specialist) &amp; AP Part Leader</p><p class="when">Aug 2025 - Present · Manila, Philippines</p></div><span class="chev" aria-hidden="true"></span></summary><ul><li id="b0-0">One agency was costing us <b>28x</b> more per paying player than our ad networks, and had earned back <b>2%</b> of what we spent. I put CAC and 90-day value side by side for every traffic source and recommended cutting it.</li><li id="b0-1">Built an LTV model that scores every player weekly. It is <b>58%</b> more accurate than the rule we used before, and the top 10% it picks bring in <b>83%</b> of revenue. Budget planning now starts from these scores.</li><li id="b0-2"><b>45%</b> of a new player&#x27;s 90-day revenue shows up after the first month. That cohort result stopped us from killing channels on one week of data.</li><li id="b0-3">Designed and built the A/B test every CRM campaign now runs on: a stratified <b>10%</b> control group, with lift read at day 7 and day 30. Once campaigns were judged on real lift, promo spend dropped from over 10% of GGR to about 5% within a month. That is about <b>PHP 10M</b> saved, and betting volume held.</li><li id="b0-4">Before a promotion goes live, I replay it on past data. One reward wheel would have cost <b>2.2x</b> its budget. We changed 8 of its conditions before launch.</li><li id="b0-5">Built a VIP churn model (gradient boosting, backtested) that gives account managers a weekly call list. Casino VIP retention was up <b>8 percentage points</b> a month later. Sports barely moved, since the season matters more than a call.</li><li id="b0-6">We were paying our live-streaming partner, LiveMatch, for <b>137x</b> more players than it actually sent. I rewrote the attribution rule (new players only, 7-day click window) and the company adopted it.</li><li id="b0-7">Run the weekly, monthly and quarterly marketing reviews for my department head, and budgets get moved off them. The monthly one used to take 4-5 days to put together. Now it takes half a day.</li><li id="b0-8">Built 10+ self-service dashboards and KPI alerts (Streamlit, Dash) for 5 teams. They save about <b>12 hours</b> of manual work weekly.</li></ul></details><details class="job" id="job1"><summary><a class="logo-link" href="https://www.ggpoker.com" target="_blank" rel="noopener" title="NSUSLAB Korea (GGPoker) website"><span class="logo"><i>NK</i><img src="https://www.google.com/s2/favicons?domain=ggpoker.com&sz=128" alt="" loading="lazy" onload="if(this.naturalWidth<32)this.remove()" onerror="this.remove()"></span></a><div class="jt"><h3><a href="https://www.ggpoker.com" target="_blank" rel="noopener">NSUSLAB Korea (GGPoker)</a></h3><p class="role">CRM Operator &amp; Data Analyst, CRM Team</p><p class="when">Nov 2023 - Aug 2025 · Seoul, South Korea</p></div><span class="chev" aria-hidden="true"></span></summary><ul><li id="b1-0">Planned, ran and measured personalized CRM campaigns in Optimove: tournaments, new game launches, and dates like Valentine&#x27;s Day. Revenue grew <b>25%</b> in 2024 and campaign ROI more than doubled.</li><li id="b1-1">Some players only showed up for free rewards. Taking them out of the targets moved tournament campaign ROI from <b>2.3x to 3.5x</b> in a month.</li><li id="b1-2">Win-back test: reminded inactive players of a big win they once had. It returned <b>3.1x</b> its cost.</li><li id="b1-3">Automated the campaign report (3-4 days of work a month, now updated daily) and set alerts for any daily revenue swing over 10%.</li></ul></details><details class="job" id="job2"><summary><a class="logo-link" href="https://www.kida.re.kr" target="_blank" rel="noopener" title="Korea Institute for Defense Analyses (KIDA) website"><span class="logo"><i>KIDA</i><img src="https://www.google.com/s2/favicons?domain=kida.re.kr&sz=128" alt="" loading="lazy" onload="if(this.naturalWidth<32)this.remove()" onerror="this.remove()"></span></a><div class="jt"><h3><a href="https://www.kida.re.kr" target="_blank" rel="noopener">Korea Institute for Defense Analyses (KIDA)</a></h3><p class="role">Researcher</p><p class="when">Sep 2020 - Aug 2023 · Seoul, South Korea</p></div><span class="chev" aria-hidden="true"></span></summary><ul><li id="b2-0">Built a text-mining model on North Korean state media that called provocations with <b>80%</b> accuracy. Also published an SSCI paper on Korea&#x27;s Defense Innovation 4.0 plan.</li></ul></details><details class="job" id="job3"><summary><a class="logo-link" href="https://www.tmax.co.kr" target="_blank" rel="noopener" title="TMAX BI website"><span class="logo"><i>TB</i><img src="https://www.google.com/s2/favicons?domain=tmaxsoft.com&sz=128" alt="" loading="lazy" onload="if(this.naturalWidth<32)this.remove()" onerror="this.remove()"></span></a><div class="jt"><h3><a href="https://www.tmax.co.kr" target="_blank" rel="noopener">TMAX BI</a></h3><p class="role">Researcher (alternative military service)</p><p class="when">Feb 2018 - Sep 2020 · Seoul, South Korea</p></div><span class="chev" aria-hidden="true"></span></summary><ul><li id="b3-0">Planned and built screens and features for the company&#x27;s B2B CRM platform, first Sales CRM and later HyperCRM.</li></ul></details><details class="job" id="job4"><summary><a class="logo-link" href="https://www.echomarketing.co.kr" target="_blank" rel="noopener" title="Echo Marketing website"><span class="logo"><i>EM</i><img src="https://www.google.com/s2/favicons?domain=echomarketing.co.kr&sz=128" alt="" loading="lazy" onload="if(this.naturalWidth<32)this.remove()" onerror="this.remove()"></span></a><div class="jt"><h3><a href="https://www.echomarketing.co.kr" target="_blank" rel="noopener">Echo Marketing</a></h3><p class="role">Account Executive &amp; Data Analyst</p><p class="when">Jan 2015 - Sep 2015 · Seoul, South Korea</p></div><span class="chev" aria-hidden="true"></span></summary><ul><li id="b4-0">Naver stopped showing ad rankings, so I built a model to set search-ad bids without them. CPA fell <b>8%</b> in the trial.</li></ul></details></div></section>
+  <section id="skills"><h2>Skills</h2><div class="skills"><div class="sk"><h4>Marketing economics</h4><div class="tags"><span>LTV forecasting</span><span>CAC/CPA</span><span>payback</span><span>ROI/ROAS</span><span>retention and churn</span><span>cohort analysis</span><span>channel attribution</span><span>budget allocation</span></div></div><div class="sk"><h4>Experimentation &amp; statistics</h4><div class="tags"><span>A/B testing</span><span>hypothesis testing</span><span>stratified control groups</span><span>difference-in-differences</span><span>backtesting</span></div></div><div class="sk"><h4>Modeling</h4><div class="tags"><span>LTV and churn prediction</span><span>gradient boosting</span><span>logistic regression</span></div></div><div class="sk"><h4>Data tools &amp; languages</h4><div class="tags"><span>SQL</span><span>Python (pandas, scikit-learn)</span><span>R</span><span>Snowflake</span><span>MaxCompute</span></div></div><div class="sk"><h4>BI &amp; dashboards</h4><div class="tags"><span>Tableau</span><span>Quick BI</span><span>Streamlit</span><span>Dash</span><span>Google Sheets</span><span>Lark Sheets</span></div></div><div class="sk"><h4>CRM &amp; automation</h4><div class="tags"><span>Optimove</span><span>Pipedream</span><span>Google Apps Script</span><span>Claude Code</span></div></div><div class="sk"><h4>Languages</h4><div class="tags"><span>English (Fluent)</span><span>Korean (Native)</span><span>Mandarin (Basic)</span></div></div></div></section>
+  <section id="education"><h2>Education</h2><div><div class="ed"><a class="logo-link" href="https://www.kaist.ac.kr" target="_blank" rel="noopener" title="M.S. in Management Engineering, KAIST website"><span class="logo"><i>MI</i><img src="https://www.google.com/s2/favicons?domain=kaist.ac.kr&sz=128" alt="" loading="lazy" onload="if(this.naturalWidth<32)this.remove()" onerror="this.remove()"></span></a><div><h3>M.S. in Management Engineering, KAIST</h3><p>GPA 3.94/4.3. Thesis: customer path analysis using sequential pattern mining.</p><p class="when">2016 - 2018</p></div></div><div class="ed"><a class="logo-link" href="https://www.kaist.ac.kr" target="_blank" rel="noopener" title="B.S. in Industrial &amp; Systems Engineering, KAIST website"><span class="logo"><i>BI</i><img src="https://www.google.com/s2/favicons?domain=kaist.ac.kr&sz=128" alt="" loading="lazy" onload="if(this.naturalWidth<32)this.remove()" onerror="this.remove()"></span></a><div><h3>B.S. in Industrial &amp; Systems Engineering, KAIST</h3><p>Dual degree in Business &amp; Technology Management. GPA 3.54/4.3. Project: AI-based predictive modeling for semiconductor manufacturing.</p><p class="when">2011 - 2016</p></div></div></div></section>
+  <section id="letter"><h2>Cover letter</h2><div class="letter"><p>Dear Hiring Team,</p>
 <p>Your posting describes a role that sits between marketing and analytics: forecasting LTV, building attribution, supporting channel budgets, and keeping BI reports that several teams rely on. That is close to my job right now. I&#x27;m a data scientist at ArenaPlus, DigiPlus&#x27;s online betting brand in the Philippines, and most of my week goes into one question: which channels bring users who stay and pay back what they cost?</p>
 <p>What I&#x27;d bring, in five lines:</p>
 <ul class="pts">
-<li><span class="lab">Channel budgets on value, not volume.</span> I put CAC and 90-day value side by side for every traffic source. One agency cost <b>28x</b> more per paying player than our ad networks and had earned back <b>2%</b> of spend. I recommended cutting it and moving the money.</li>
-<li><span class="lab">LTV forecasts that hold up.</span> My LTV model scores every player weekly. It is <b>58%</b> more accurate than our old rule, and its top 10% bring in <b>83%</b> of revenue. It also showed that <b>45%</b> of 90-day revenue arrives after the first month, which is why an early read needs a model, not a week of data.</li>
-<li><span class="lab">Tests people trust.</span> I designed the A/B test every CRM campaign now runs on, with a stratified <b>10%</b> control group. Once promotions were judged on real lift, spend fell from over 10% to about 5% of GGR within a month. That was about <b>PHP 10M</b> saved.</li>
-<li><span class="lab">Attribution that matches reality.</span> We were paying a live-streaming partner for <b>137x</b> more players than it actually sent. The company adopted my new rule: new players only, 7-day click window.</li>
-<li><span class="lab">Reports teams actually use.</span> I lead the weekly, monthly and quarterly marketing reviews for my department head, and built 10+ dashboards and KPI alerts for 5 teams. They save about <b>12 hours</b> of manual work a week.</li>
+<li><b class="lab">Channel budgets on value, not volume.</b> I put CAC and 90-day value side by side for every traffic source. One agency cost <b>28x</b> more per paying player than our ad networks and had earned back <b>2%</b> of spend. I recommended cutting it and moving the money.</li>
+<li><b class="lab">LTV forecasts that hold up.</b> My LTV model scores every player weekly. It is <b>58%</b> more accurate than our old rule, and its top 10% bring in <b>83%</b> of revenue. It also showed that <b>45%</b> of 90-day revenue arrives after the first month, which is why an early read needs a model, not a week of data.</li>
+<li><b class="lab">Tests people trust.</b> I designed the A/B test every CRM campaign now runs on, with a stratified <b>10%</b> control group. Once promotions were judged on real lift, spend fell from over 10% to about 5% of GGR within a month. That was about <b>PHP 10M</b> saved.</li>
+<li><b class="lab">Attribution that matches reality.</b> We were paying a live-streaming partner for <b>137x</b> more players than it actually sent. The company adopted my new rule: new players only, 7-day click window.</li>
+<li><b class="lab">Reports teams actually use.</b> I lead the weekly, monthly and quarterly marketing reviews for my department head, and built 10+ dashboards and KPI alerts for 5 teams. They save about <b>12 hours</b> of manual work a week.</li>
 </ul>
 <p>A creative-software subscription and a betting app look different from the outside, but the questions are the same. Which channels bring users who stay? How long until a user pays back what it cost to win them? Is a campaign&#x27;s lift real, or would those users have come anyway? Those are the questions I like working on, and Movavi&#x27;s subscription model puts them at the center.</p>
 <p>How I&#x27;d start: learn the stack and the data, sit with the marketing and product people who use the numbers, and find the one decision that is slowest or least trusted today. That one gets fixed first.</p>
 <p>The portfolio after my resume shows the charts behind each number above. I would welcome the chance to walk you through them in an interview. And if it turns out to be a good fit, I would be glad to do this work with your team at Movavi.</p>
 <p>Best regards,</p>
-<p>Donghwan (Kyle) Yun</p></div></div>
-</section>
-
-<section class="panel" id="cases" data-panel="cases" hidden>
-  <iframe class="frame" title="Case files" data-src="portfolio.html" loading="lazy"></iframe>
-</section>
+<p>Donghwan (Kyle) Yun</p></div></section>
+  <section id="cases"><h2>Case files</h2><div class="cases"><p>Six marketing decisions, each with the problem, what I did, and the charts behind the result.</p><a href="portfolio.html" target="_blank" rel="noopener">Open case files</a></div></section>
 </main>
-<footer class="wrap">The PDF has the resume, cover letter and case files in one file.</footer>
-
+</div>
 <script>
-(function () {
-  var tabs = document.querySelectorAll("[data-tab]");
-  var frame = document.querySelector(".frame");
-  function show(name, push) {
-    tabs.forEach(function (t) { t.setAttribute("aria-selected", t.dataset.tab === name ? "true" : "false"); });
-    document.querySelectorAll("[data-panel]").forEach(function (p) { p.hidden = p.dataset.panel !== name; });
-    if (name === "cases" && !frame.src) frame.src = frame.dataset.src;
-    if (push) history.replaceState(null, "", "#" + name);
-  }
-  tabs.forEach(function (t) { t.addEventListener("click", function () { show(t.dataset.tab, true); }); });
-  var start = (location.hash || "").slice(1);
-  if (["resume", "cover", "cases"].indexOf(start) > -1) show(start, false);
-
-  // Number cards jump to the bullet that backs them up.
-  document.querySelectorAll(".m").forEach(function (m) {
-    m.addEventListener("click", function () {
-      show("resume", true);
-      var li = document.getElementById(m.dataset.go);
-      if (!li) return;
-      li.scrollIntoView({ behavior: "smooth", block: "center" });
-      li.classList.remove("flash"); void li.offsetWidth; li.classList.add("flash");
-      setTimeout(function () { li.classList.remove("flash"); }, 1800);
-    });
+document.querySelectorAll(".m").forEach(function (m) {
+  m.addEventListener("click", function () {
+    var li = document.getElementById(m.dataset.go);
+    if (!li) return;
+    li.closest("details").open = true;
+    li.scrollIntoView({ behavior: "smooth", block: "center" });
+    li.classList.remove("flash"); void li.offsetWidth; li.classList.add("flash");
+    setTimeout(function () { li.classList.remove("flash"); }, 1800);
   });
-
-  // Size the case-file frame to its content (same origin).
-  frame.addEventListener("load", function () {
-    try {
-      var fit = function () { frame.style.height = frame.contentDocument.documentElement.scrollHeight + "px"; };
-      fit(); setTimeout(fit, 600); setTimeout(fit, 1500);
-    } catch (e) {}
-  });
-})();
+});
+// Company name links open the site without also toggling the row.
+document.querySelectorAll(".job summary a").forEach(function (a) { a.addEventListener("click", function (e) { e.stopPropagation(); }); });
 </script>
 </body>
 </html>
